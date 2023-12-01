@@ -1,0 +1,8 @@
+{
+  "editor.inlineSuggest.showToolbar": "onHover",
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "workbench.colorCustomizations": {
+    "editorWarning.foreground": "#ffff00"
+  },
+  "eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }]
+}
