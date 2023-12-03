@@ -10,7 +10,7 @@ interface FormValues {
   stock: string;
   secondaryImages: FileList[];
   description: string;
-  categoryName: string;
+  categoryId: string;
   primaryImage: FileList;
 }
 
@@ -73,7 +73,7 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
     formData.append("primary_image", data.primaryImage[0]);
     formData.append("price", data.price);
     formData.append("stock", data.stock);
-    formData.append("category_id", data.categoryName);
+    formData.append("category_id", data.categoryId);
     formData.append("color", "red");
 
     for (const secondaryFile of Array.from(data.secondaryImages)) {
@@ -388,7 +388,7 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
                 className={`${
                   !isAddCategorySelected ? "hidden" : ""
                 } input input-bordered w-full max-w-xs`}
-                {...register("categoryName", {
+                {...register("categoryId", {
                   required: true,
                 })}
               />
@@ -396,13 +396,13 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
                 <select
                   onChange={(e) => {
                     if (e.target.value === "Añadir") {
-                      setValue("categoryName", "");
+                      setValue("categoryId", "");
                       setAddCategorySelected(true);
-                      clearErrors("categoryName");
+                      clearErrors("categoryId");
                       return;
                     }
-                    setValue("categoryName", e.target.value);
-                    clearErrors("categoryName");
+                    setValue("categoryId", e.target.value);
+                    clearErrors("categoryId");
                   }}
                   defaultValue={"category-default"}
                   className="select select-bordered"
@@ -411,7 +411,7 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
                     Categoría
                   </option>
                   {categories?.map((category) => (
-                    <option key={category.id} value={category.name}>
+                    <option key={category.id} value={category.id}>
                       {category.name}
                     </option>
                   ))}
@@ -420,7 +420,7 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
                   </option>
                 </select>
               )}
-              {errors.categoryName ? (
+              {errors.categoryId ? (
                 <div className="badge badge-warning my-[2px] gap-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -435,7 +435,7 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
                       d="M6 18L18 6M6 6l12 12"
                     ></path>
                   </svg>
-                  {errors.categoryName.message ?? "obligatorio"}
+                  {errors.categoryId.message ?? "obligatorio"}
                 </div>
               ) : (
                 <div className="h-6"></div>
