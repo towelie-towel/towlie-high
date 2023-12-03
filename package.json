@@ -14,12 +14,10 @@
     "@t3-oss/env-nextjs": "^0.7.1",
     "next": "^14.0.3",
     "pg": "^8.11.3",
-    "plaiceholder": "^3.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sharp": "^0.33.0",
-    "zod": "^3.22.4",
-    "zod-form-data": "^2.0.2"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.0.3",
