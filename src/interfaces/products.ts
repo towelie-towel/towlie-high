@@ -2,15 +2,16 @@ export interface Product {
     id: number;
     name: string;
     description: string;
-    primary_images_id: number;
+    image_id: number;
     price: number;
     currency: string;
     priority: number;
     active: boolean;
     deleted: boolean;
     stock: number;
-    categories_id: number;
+    category_id: number;
     primary_image: Image;
+    secondary_images: Image[];
     category: Category
 }
 
@@ -23,8 +24,7 @@ export interface Category {
 export interface Image {
     id: number,
     url: string,
-    blur_data_url: string,
-    name: string,
+    blur: string,
     size_mb: number,
     color: string,
 }

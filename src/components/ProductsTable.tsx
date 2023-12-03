@@ -25,12 +25,12 @@ const ProductsTable: React.FC = () => {
     await getCategories();
   };
   const getProducts = async () => {
-    const res = await fetch("/products");
+    const res = await fetch("/api/products");
     const data = (await res.json()) as Product[];
     setProducts(data);
   };
   const getCategories = async () => {
-    const res = await fetch("/categories");
+    const res = await fetch("/api/categories");
     const data = (await res.json()) as Category[];
     setCategories(data);
   };
@@ -203,7 +203,7 @@ const ProductsTable: React.FC = () => {
                                 onChange={(e) => {
                                   if (
                                     e.target.value ===
-                                    product.categories_id.toString()
+                                    product.category_id.toString()
                                   )
                                     return;
 
@@ -221,7 +221,7 @@ const ProductsTable: React.FC = () => {
                                     // })
                                   }
                                 }}
-                                value={product.categories_id.toString()}
+                                value={product.category_id.toString()}
                                 className="select absolute w-full bg-transparent"
                               >
                                 {categories?.map((category) => (
@@ -487,13 +487,13 @@ const ProductsTable: React.FC = () => {
                     const checkedProductsIds = checkedProducts.map(
                       (product) => product.id,
                     );
-                    const checkedProductsRoutes = checkedProducts.map(
+                    /* const checkedProductsRoutes = checkedProducts.map(
                       (product) =>
                         product.primary_image.name
                           .split("/")
                           .splice(1)
                           .join("/"),
-                    );
+                    ); */
 
                     if (!checkedProductsIds || checkedProductsIds?.length === 0)
                       return;

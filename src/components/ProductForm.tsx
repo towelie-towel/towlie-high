@@ -19,7 +19,7 @@ interface IProps {
 }
 
 const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
-  const [upldProd, setUpldProd] = useState("Subir");
+  const [upldState, setUpldState] = useState("stand_by");
   const [primaryImageSize, setPrimaryImageSize] = useState<number>();
   const [secondaryImagesSize, setSecondaryImagesSize] = useState<number[]>();
   const [isAddCategorySelected, setAddCategorySelected] = useState(false);
@@ -28,7 +28,7 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
   const [categories, setCategories] = useState<Category[]>([]);
 
   const getCategories = async () => {
-    const res = await fetch("/categories");
+    const res = await fetch("/api/categories");
     const data = (await res.json()) as Category[];
     setCategories(data);
   };
@@ -52,94 +52,42 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
   const productNameRegex = /^[a-zA-Z0-9]+(\s[a-zA-Z0-9]+)*$/;
 
   const onSubmit2 = async (data: FormValues) => {
-    if (upldProd === "Subida") {
+    if (upldState === "uploaded") {
       setPrimaryImageSize(undefined);
       setSecondaryImagesSize(undefined);
-      setUpldProd("Subir");
+      setUpldState("stand_by");
       reset();
       return;
     }
-    if (upldProd === "Error") {
-      setUpldProd("Subir");
+    if (upldState === "error") {
+      setUpldState("stand_by");
       return;
     }
 
     if (!data.primaryImage[0]) return;
-    setUpldProd("Cargando");
+    setUpldState("loading");
 
-    /* const arrayBufferPrimaryImage = await data.primaryImage[0].arrayBuffer();
-    const primaryImageBuffer = Buffer.from(arrayBufferPrimaryImage);
-
-    const metadataSecondaryImages: Buffer[] = [];
-
-    for (const secondaryFile of Array.from(data.secondaryImages)) {
-      if (!secondaryFile) continue;
-      const arrayBufferSecondaryImage = await (
-        secondaryFile as unknown as File
-      ).arrayBuffer();
-      const secondaryImageBuffer = Buffer.from(arrayBufferSecondaryImage);
-      metadataSecondaryImages.push(secondaryImageBuffer);
-    }
-
-    const currentDate = new Date();
-    const uniqueName = `${data.name.split(" ").join("")}-${currentDate.getFullYear()}${currentDate.getMonth() + 1}${currentDate.getDate()}${currentDate.getHours()}${currentDate.getMinutes()}${currentDate.getSeconds()}`;
-
-    const bucketName = 'images';
-    const folderName = 'products';
-
-    const { data: primaryImageURL, error: uploadError } =
-      await supabase.storage
-        .from(bucketName)
-        .upload(`${folderName}/${uniqueName}.jpg`, primaryImageBuffer);
-
-    if (uploadError || !primaryImageURL) {
-      throw new Error(
-        `Error while uploading the primary image: ${uploadError?.message}`
-      );
-    }
-
-    const secondaryImages: { path: string, sizeMb: number }[] = [];
-    if (metadataSecondaryImages.length > 0) {
-      for (const [index, element] of metadataSecondaryImages.entries()) {
-        const { data: secondaryImageURL, error: uploadSecError } =
-          await supabase.storage
-            .from(bucketName)
-            .upload(
-              `${folderName}/${uniqueName}-${index + 1}.jpg`,
-              element
-            );
-
-        if (uploadSecError || !secondaryImageURL) {
-          throw new Error(
-            `Error while uploading a secondary image: ${uploadSecError?.message}`
-          );
-        }
-
-        secondaryImages.push({
-          path: secondaryImageURL.path,
-          sizeMb: (element.length || 0) / 1000
-        });
-      }
-    } */
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("description", data.description);
-    formData.append("primaryImage", data.primaryImage[0]);
+    formData.append("primary_image", data.primaryImage[0]);
     formData.append("price", data.price);
     formData.append("stock", data.stock);
-    formData.append("categoryName", data.categoryName);
+    formData.append("category_id", data.categoryName);
     formData.append("color", "red");
 
-    //for (const secondaryFile of Array.from(data.secondaryImages)) {
-    //  if (!secondaryFile) continue;
-    //  formData.append("secondaryImages", secondaryFile as unknown as File);
-    //}
+    for (const secondaryFile of Array.from(data.secondaryImages)) {
+      if (!secondaryFile) continue;
+      formData.append("secondary_images", secondaryFile as unknown as File);
+      console.log("file appended");
+    }
 
     //console.log(data.primaryImage[0]);
     const response = await fetch("/api/products", {
       method: "POST",
       body: formData,
     });
+    setUpldState("uploaded");
   };
 
   return (
@@ -220,7 +168,7 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
                     d="M6 18L18 6M6 6l12 12"
                   ></path>
                 </svg>
-                {errors.primaryImage.message || "obligatorio"}
+                {errors.primaryImage.message ?? "obligatorio"}
               </div>
             ) : primaryImageSize && primaryImageSize > 1 * 1024 * 1024 ? (
               <div className="badge  badge-warning my-[2px] gap-2">
@@ -305,7 +253,7 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
                     d="M6 18L18 6M6 6l12 12"
                   ></path>
                 </svg>
-                {errors.secondaryImages.message || "obligatorio"}
+                {errors.secondaryImages.message ?? "obligatorio"}
               </div>
             ) : secondaryImagesSize &&
               secondaryImagesSize.some(
@@ -357,7 +305,7 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
                       d="M6 18L18 6M6 6l12 12"
                     ></path>
                   </svg>
-                  {errors.name.message || "obligatorio"}
+                  {errors.name.message ?? "obligatorio"}
                 </div>
               ) : (
                 <div className="h-6"></div>
@@ -385,7 +333,7 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
                       d="M6 18L18 6M6 6l12 12"
                     ></path>
                   </svg>
-                  {errors.price.message || "obligatorio"}
+                  {errors.price.message ?? "obligatorio"}
                 </div>
               ) : (
                 <div className="h-6"></div>
@@ -487,7 +435,7 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
                       d="M6 18L18 6M6 6l12 12"
                     ></path>
                   </svg>
-                  {errors.categoryName.message || "obligatorio"}
+                  {errors.categoryName.message ?? "obligatorio"}
                 </div>
               ) : (
                 <div className="h-6"></div>
@@ -522,21 +470,21 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
 
           <div className={`modal-action mt-0`}>
             <button
-              className={`btn ${upldProd === "Cargando" ? "loading" : ""} ${
-                upldProd === "Subida" ? "btn-success" : ""
+              className={`btn ${upldState === "loading" ? "loading" : ""} ${
+                upldState === "uploaded" ? "btn-success" : ""
               }
-                ${upldProd === "Error" ? "btn-error" : ""}
+                ${upldState === "error" ? "btn-error" : ""}
                 `}
               type="submit"
-              disabled={upldProd === "Cargando"}
+              disabled={upldState === "loading"}
             >
-              {upldProd}
+              {upldState}
             </button>
             <label
               onClick={() => {
                 setPrimaryImageSize(undefined);
                 setSecondaryImagesSize(undefined);
-                setUpldProd("Subir");
+                setUpldState("stand_by");
                 setAddCategorySelected(false);
                 setOtherStockSelected(false);
                 reset();
@@ -560,59 +508,3 @@ function showSize(sizeInBytes: number) {
 }
 
 export default ProductForm;
-
-/* 
-LegacyCode
-
-const createProduct = api.product.createWithSupabase.useMutation();
-
-const onSubmit = async (data: FormValues) => {
-    if (upldProd === 'Error' || upldProd === 'Subida') {
-      setPrimaryImageSize(undefined);
-      setSecondaryImagesSize(undefined);
-      setUpldProd('Subir');
-      reset();
-      return;
-    }
-
-    if (!data.primaryImage[0]) return;
-    setUpldProd('Cargando');
-
-    const arrayBufferPrimaryImage = await data.primaryImage[0].arrayBuffer();
-    const primaryImageBuffer = Buffer.from(arrayBufferPrimaryImage);
-
-    const metadataSecondaryImages: Buffer[] = [];
-
-    for (const secondaryFile of Array.from(data.secondaryImages)) {
-      if (!secondaryFile) continue;
-      const arrayBufferSecondaryImage = await (
-        secondaryFile as unknown as File
-      ).arrayBuffer();
-      const secondaryImageBuffer = Buffer.from(arrayBufferSecondaryImage);
-      metadataSecondaryImages.push(secondaryImageBuffer);
-    }
-
-    createProduct.mutate(
-      {
-        name: data.name,
-        description: data.description,
-        primaryImage: primaryImageBuffer,
-        color: '',
-        secondaryImages: metadataSecondaryImages,
-        price: parseInt(data.price),
-        stock: parseInt(data.stock),
-        categoryName: data.categoryName,
-      },
-      {
-        onError: () => {
-          setUpldProd('Error');
-        },
-        onSuccess() {
-          setUpldProd('Subida');
-          if (isAddCategorySelected) void refetchCategories();
-          onUploadSucces();
-        },
-      }
-    );
-  };
-*/
