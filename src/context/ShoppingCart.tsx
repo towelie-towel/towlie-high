@@ -1,11 +1,11 @@
-import Image from 'next/image';
-import { createContext, useContext, useState, useEffect } from 'react';
-import SettingsOptions from '~/components/settings/Settings';
+"use client";
+import Image from "next/image";
+import { getCookie, setCookie } from "cookies-next";
+import { createContext, useContext, useState, useEffect } from "react";
 
-import BuyingProcess from '~/components/cart/BuyingProcess';
-import { useCookies } from 'react-cookie';
+import SettingsOptions from "~/components/settings/Settings";
+import BuyingProcess from "~/components/cart/BuyingProcess";
 
-// TODO store cart items on cookies
 export interface CartItem {
   productId: number;
   imageURL: string;
@@ -15,12 +15,10 @@ export interface CartItem {
   price: number;
   quantity: number;
 }
-
 export interface Cart {
   items: CartItem[];
   total: number;
 }
-
 export interface CartContext {
   cart: Cart;
   addToCart: (item: CartItem) => void;
@@ -32,33 +30,31 @@ const CartContext = createContext<CartContext | null>(null);
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
+    throw new Error("useCart must be used within a CartProvider");
   }
   return context;
 };
 
-export const CartProvider: React.FC<React.PropsWithChildren> = ({
-  children,
-}) => {
+interface IProps {
+  children: React.ReactNode;
+}
+
+export const CartProvider: React.FC<IProps> = ({ children }) => {
   const [cart, setCart] = useState<Cart>({
     items: [],
     total: 0,
   });
-  const [cookies, setCookie] = useCookies(['cart']);
+
+  console.log({ cart });
+  console.log("cookies", getCookie("cart"));
 
   useEffect(() => {
-    setCookie('cart', cart);
-    console.log('added to cookies', cart);
-  }, [cart, setCookie]);
-
-  useEffect(() => {
-    setCart(cookies.cart);
-    console.log('added from cookies', cart);
-  }, []);
+    setCookie("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (newItem: CartItem) => {
     const existItem = cart.items.find(
-      (item) => item.productId === newItem.productId
+      (item) => item.productId === newItem.productId,
     );
 
     if (existItem) {
@@ -66,7 +62,7 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({
         items: cart.items.map((item) =>
           item.productId === existItem.productId
             ? { ...existItem, quantity: existItem.quantity + newItem.quantity }
-            : item
+            : item,
         ),
         total: cart.total + newItem.price,
       });
@@ -80,16 +76,16 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({
 
   const removeFromCart = (productId: number) => {
     const removedProduct = cart.items.find(
-      (item) => item.productId === productId
+      (item) => item.productId === productId,
     );
 
     if (!removedProduct) {
-      throw new Error('Product not found');
+      throw new Error("Product not found");
     }
 
     setCart({
       items: cart.items.filter(
-        (item) => item.productId !== removedProduct.productId
+        (item) => item.productId !== removedProduct.productId,
       ),
       total: cart.total - removedProduct.price,
     });
@@ -97,63 +93,68 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({
 
   return (
     <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
-      <input type='checkbox' id='cart-modal' className='modal-toggle' />
+      <input type="checkbox" id="cart-modal" className="modal-toggle" />
       <label
-        htmlFor='cart-modal'
-        className='modal max-[768px]:modal-bottom cursor-pointer'>
-        <label className='modal-box relative' htmlFor=''>
+        htmlFor="cart-modal"
+        className="modal cursor-pointer max-[768px]:modal-bottom"
+      >
+        <label className="modal-box relative" htmlFor="">
           <label
-            htmlFor='cart-modal'
-            className='absolute top-4 right-4 btn btn-ghost cursor-pointer rounded-full z-20'>
+            htmlFor="cart-modal"
+            className="btn btn-ghost absolute right-4 top-4 z-20 cursor-pointer rounded-full"
+          >
             <svg
-              fill='none'
-              viewBox='0 0 24 24'
+              fill="none"
+              viewBox="0 0 24 24"
               width={18}
               height={18}
-              stroke='currentColor'>
+              stroke="currentColor"
+            >
               <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M6 18L18 6M6 6l12 12'></path>
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
             </svg>
           </label>
-          <div className='flex flex-col gap-4 justify-between items-center'>
-            <div className='card-header gap-2 flex'>
-              <div className='stack'>
+          <div className="flex flex-col items-center justify-between gap-4">
+            <div className="card-header flex gap-2">
+              <div className="stack">
                 {cart.items.map((item) => (
                   <figure
                     key={item.productId}
-                    className='relative rounded-xl overflow-hidden pb-[100%] w-16'>
+                    className="relative w-16 overflow-hidden rounded-xl pb-[100%]"
+                  >
                     <Image
                       src={item.imageURL}
                       blurDataURL={item.blurImageUrl}
                       alt={item.name}
-                      placeholder='blur'
-                      className='object-cover'
+                      placeholder="blur"
+                      className="object-cover"
                       fill
-                      sizes='(max-width: 768px) 60vw,
+                      sizes="(max-width: 768px) 60vw,
                       (max-width: 1200px) 40vw,
-                      33vw'
+                      33vw"
                       quality={60}
                     />
                   </figure>
                 ))}
               </div>
-              <div className='flex flex-col'>
-                <h1 className='card-title font-bold text-lg'>
+              <div className="flex flex-col">
+                <h1 className="card-title text-lg font-bold">
                   {cart.items?.reduce((a, b) => a + b.quantity, 0)} Productos
                 </h1>
-                <h2 className='card-title text-info'>Total: ${cart.total}</h2>
+                <h2 className="card-title text-info">Total: ${cart.total}</h2>
               </div>
             </div>
             {cart.items?.length === 0 ? (
-              <h1 className='card-title font-bold text-lg'>
+              <h1 className="card-title text-lg font-bold">
                 Tu carrito esta vacio 😥
               </h1>
             ) : (
-              <div className='w-full max-h-[40vh] overflow-scroll bg-base-100'>
-                <table className='table table-compact table-zebra w-full'>
+              <div className="max-h-[40vh] w-full overflow-scroll bg-base-100">
+                <table className="table-compact table table-zebra w-full">
                   <thead>
                     <tr>
                       <th>Producto</th>
@@ -169,7 +170,7 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({
                           <Image
                             src={item.imageURL}
                             alt={item.name}
-                            placeholder='blur'
+                            placeholder="blur"
                             blurDataURL={item.blurImageUrl}
                             width={64}
                             height={64}
@@ -188,12 +189,13 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({
                                 items: cart.items.map((product) =>
                                   product.productId === item.productId
                                     ? { ...product, quantity: newQuantity }
-                                    : product
+                                    : product,
                                 ),
                               });
                             }}
                             value={item.quantity}
-                            className='select'>
+                            className="select"
+                          >
                             {Array(item.productStock)
                               .fill(0)
                               .map((_, index) => (
@@ -211,24 +213,26 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({
               </div>
             )}
           </div>
-          <div className='modal-action'>
+          <div className="modal-action">
             <label
               onClick={() => {
-                console.log('cookies', cookies.cart);
-                console.log('cart', cart);
+                console.log("cookies", getCookie("cart"));
+                console.log("cart", cart);
               }}
-              className='btn btn-primary'>
+              className="btn btn-primary"
+            >
               Cookies/Cart
             </label>
             <label
-              id='open-buy-modal'
-              htmlFor='buy-modal'
+              id="open-buy-modal"
+              htmlFor="buy-modal"
               className={`btn btn-primary ${
-                cart.items?.length === 0 ? 'btn-disabled' : ''
-              }`}>
+                cart.items?.length === 0 ? "btn-disabled" : ""
+              }`}
+            >
               Comprar
             </label>
-            <label htmlFor='cart-modal' className='btn btn-primary'>
+            <label htmlFor="cart-modal" className="btn btn-primary">
               Close
             </label>
           </div>

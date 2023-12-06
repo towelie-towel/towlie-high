@@ -1,29 +1,29 @@
-import Image from 'next/image';
-import { useCart } from '~/components/cart/ShoppingCart';
-import { useToast } from '~/hooks/useToast';
-import { api } from '~/utils/api';
+import Image from "next/image";
+import { useCart } from "~/context/ShoppingCart";
+import { useToast } from "~/context/Toaster";
+import { api } from "~/utils/api";
 
 const ProductsCardScroll: React.FC = () => {
   const { cart, addToCart } = useCart();
-  const { addToast } = useToast()
+  const { addToast } = useToast();
 
-  const { data: productsData, isFetched } =
-    api.product.getAll.useQuery();
+  const { data: productsData, isFetched } = api.product.getAll.useQuery();
 
   return (
-    <div className="flex flex-wrap max-w-lg items-center justify-around">
+    <div className="flex max-w-lg flex-wrap items-center justify-around">
       {/* Products Placeholders */}
       {!isFetched &&
         Array(6)
           .fill(0)
           .map((_, index) => (
-            <div key={index} className="card card-compact w-[45%] rounded-xl overflow-hidden glass mt-12">
-              <div className="pb-[100%] w-full  animate-pulse bg-current opacity-25">
-
-              </div>
+            <div
+              key={index}
+              className="card glass card-compact mt-12 w-[45%] overflow-hidden rounded-xl"
+            >
+              <div className="w-full animate-pulse  bg-current pb-[100%] opacity-25"></div>
               <div className="card-body">
-                <h2 className="w-2/3 h-4 rounded-lg animate-pulse bg-current opacity-25"></h2>
-                <h2 className="w-1/2 h-4 rounded-lg animate-pulse bg-current opacity-25"></h2>
+                <h2 className="h-4 w-2/3 animate-pulse rounded-lg bg-current opacity-25"></h2>
+                <h2 className="h-4 w-1/2 animate-pulse rounded-lg bg-current opacity-25"></h2>
                 <div className="card-actions justify-end">
                   <button className="btn btn-primary">
                     <svg
@@ -45,15 +45,11 @@ const ProductsCardScroll: React.FC = () => {
                 </div>
               </div>
             </div>
-          ))
-      }
+          ))}
       {/* Actual products cards */}
       {productsData?.map((product) => (
-        <div
-          key={product.id}
-          className="card card-compact w-[45%] glass mt-12"
-        >
-          <figure className="relative overflow-hidden pb-[100%] w-full">
+        <div key={product.id} className="card glass card-compact mt-12 w-[45%]">
+          <figure className="relative w-full overflow-hidden pb-[100%]">
             <Image
               src={product.imageName}
               blurDataURL={product.imageBlurDataURL}
@@ -74,14 +70,16 @@ const ProductsCardScroll: React.FC = () => {
                 className="btn btn-primary"
                 // TODO mostrar no disponemos más de ese producto cuando no haya stock
                 onClick={() => {
-                  const existItem = cart.items.find(item => item.productId === product.id)
+                  const existItem = cart.items.find(
+                    (item) => item.productId === product.id,
+                  );
 
                   if (existItem && product.stock <= existItem.quantity) {
                     addToast({
-                      title: 'No stock',
+                      title: "No stock",
                       description: "Sorry, we don't have that many in stock",
-                      type: "error"
-                    })
+                      type: "error",
+                    });
                     return;
                   }
 
@@ -94,7 +92,6 @@ const ProductsCardScroll: React.FC = () => {
                     price: product.price,
                     quantity: 1,
                   });
-
                 }}
               >
                 <svg
