@@ -64,11 +64,11 @@ export default async function RootLayout({
         }`}
       >
         <Providers
-          colorThemeProp={dataTheme}
-          lightThemeProp={lightTheme}
-          darkThemeProp={darkTheme}
-          gradientThemeProp={gradientTheme}
-          bgThemeProp={bgColorTheme}
+          colorThemeProp={dataTheme ?? ""}
+          lightThemeProp={lightTheme ?? ""}
+          darkThemeProp={darkTheme ?? ""}
+          gradientThemeProp={gradientTheme ?? ""}
+          bgThemeProp={bgColorTheme ?? ""}
         >
           <Layout>{children}</Layout>
         </Providers>
