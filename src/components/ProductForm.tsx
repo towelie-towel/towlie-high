@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import type { Category } from "~/interfaces/products";
-import { supabase } from "~/lib/supabase";
+import type { Category } from "~/interfaces";
 
 interface FormValues {
   name: string;
@@ -87,6 +86,8 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
       method: "POST",
       body: formData,
     });
+    console.log(response);
+    onUploadSucces();
     setUpldState("Subida");
   };
 

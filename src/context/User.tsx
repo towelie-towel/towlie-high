@@ -99,9 +99,9 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
           id: resSession?.user.id,
           phone: resSession?.user.phone,
           email: resSession?.user.email,
-          username: resSession?.user.user_metadata.username,
-          slug: resSession?.user.user_metadata.slug,
-          role: resSession?.user.user_metadata.role,
+          username: resSession?.user.user_metadata.username as string,
+          slug: resSession?.user.user_metadata.slug as string,
+          role: resSession?.user.user_metadata.role as string,
           ...user,
         });
         setIsSignedIn(true);

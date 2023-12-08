@@ -11,7 +11,7 @@ import {
 } from "react-beautiful-dnd";
 import { StrictModeDroppable as Droppable } from "~/helpers/DroppableStrictMode";
 import { useInput } from "~/hooks/useInput";
-import type { Product, Category } from "~/interfaces/products";
+import type { Product, Category } from "~/interfaces";
 
 const ProductsTable: React.FC = () => {
   const [isAnyProductSelected, setIsAnyProductSelected] = useState(false);
@@ -21,6 +21,7 @@ const ProductsTable: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
 
   const onDragEndHandler = async (result: DropResult) => {
+    console.log(result, isAnyProductSelected);
     await getProducts();
     await getCategories();
   };

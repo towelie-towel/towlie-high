@@ -1,3 +1,4 @@
+/* eslint-disable */
 /// <reference types="node" />
 import sharp, { type Sharp, type Metadata, OutputInfo } from "sharp";
 interface GetPixelsOptions {

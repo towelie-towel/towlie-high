@@ -370,7 +370,7 @@ export default function InstagramCarousel() {
                     unoptimized
                   />
                 ))}
-                <div className="left-[0px] left-[15px] left-[30px] w-[0px] w-[20px] w-[35px] w-[50px]"></div>
+                <div className="left-[15px] w-[20px]"></div>
               </div>
               <div className="flex h-full items-center">
                 <h2 className="ml-1 text-xs font-medium">

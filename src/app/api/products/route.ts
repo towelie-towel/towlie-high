@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { env } from '~/env';
 import { getPlaiceholder } from '~/helpers/plaiceholder';
-import { type Image } from '~/interfaces/products';
+import { type Image } from '~/interfaces';
 import { conn } from '~/lib/db';
 import { supabase } from '~/lib/supabase';
 

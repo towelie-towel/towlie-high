@@ -28,3 +28,11 @@ export interface Image {
     size_mb: number,
     color: string,
 }
+
+export interface Theme {
+    color_theme: string,
+    light_theme: string,
+    dark_theme: string,
+    gradient_theme: string,
+    bg_theme: string,
+}

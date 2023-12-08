@@ -1,18 +1,11 @@
 "use client";
 import Image from "next/image";
 import { getCookie, setCookie } from "cookies-next";
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  Dispatch,
-  SetStateAction,
-} from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 import SettingsOptions from "~/components/settings/Settings";
 import BuyingProcess from "~/components/cart/BuyingProcess";
-import { Category, Product } from "~/interfaces/products";
+import { type Category, type Product } from "~/interfaces";
 
 // TODO: review CartItem attributes
 export interface CartItem {
@@ -34,8 +27,8 @@ export interface CartContext {
   removeFromCart: (productId: number) => void;
   products: Product[];
   categories: Category[];
-  getProducts: () => void;
-  getCategories: () => void;
+  getProducts: () => Promise<void>;
+  getCategories: () => Promise<void>;
 }
 
 const CartContext = createContext<CartContext | null>(null);

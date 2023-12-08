@@ -1,5 +1,5 @@
 "use client";
-import { getCookie, setCookie } from "cookies-next";
+import { setCookie } from "cookies-next";
 import { createContext, useContext, useState, useEffect } from "react";
 
 export interface ThemeContext {

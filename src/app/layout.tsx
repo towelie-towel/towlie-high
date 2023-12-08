@@ -1,15 +1,10 @@
 import { cookies } from "next/headers";
-import { Inter } from "next/font/google";
 
 import "~/styles/globals.css";
 import Providers from "~/components/layout/Providers";
 import { conn } from "~/lib/db";
 import Layout from "~/components/layout/Layout";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
+import { type Theme } from "~/interfaces";
 
 export const metadata = {
   title: "Cuba Store",
@@ -37,7 +32,7 @@ export default async function RootLayout({
     !bgColorTheme
   ) {
     const theme = await conn.query("SELECT * FROM theme WHERE id = 1");
-    const themeData = theme.rows[0];
+    const themeData = theme.rows[0] as Theme;
     console.log(themeData);
     dataTheme = dataTheme ?? themeData.color_theme;
     lightTheme = lightTheme ?? themeData.light_theme;
