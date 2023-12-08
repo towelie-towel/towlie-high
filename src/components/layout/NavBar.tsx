@@ -149,7 +149,7 @@ const NavBar: React.FC = () => {
           <button
             className="btn btn-info"
             onClick={async () => {
-              let { data, error } = await supabase.auth.signInWithOAuth({
+              const { data, error } = await supabase.auth.signInWithOAuth({
                 provider: "google",
               });
               console.log({ data, error });
