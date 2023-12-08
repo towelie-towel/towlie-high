@@ -141,7 +141,13 @@ const NavBar: React.FC = () => {
                 <label htmlFor="setting-modal">Settings</label>
               </li>
               <li>
-                <a onClick={() => {}}>Logout</a>
+                <a
+                  onClick={() => {
+                    console.log("aaa");
+                  }}
+                >
+                  Logout
+                </a>
               </li>
             </ul>
           </div>
