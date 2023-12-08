@@ -3,7 +3,7 @@ import NavBar from "./NavBar";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div className="flex h-screen w-screen flex-col">
+    <div className="flex h-full w-full flex-col">
       <NavBar />
       <div className="drawer-mobile drawer">
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -14,23 +14,23 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </div>
         <div className="drawer-side min-[768px]:visible">
           <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-          <ul className="menu w-80 bg-base-100 p-4">
-            <li>
-              <Link href="/products">Productos</Link>
-            </li>
-            <li>
-              <Link href="/orders">Ordenes</Link>
-            </li>
-            <li>
-              <Link href="/test">Pruebas</Link>
-            </li>
-            <li>
-              <Link href="/admin">Admin</Link>
-            </li>
-            <li>
-              <Link href="/admin/products">Admin/Products</Link>
-            </li>
-          </ul>
+          <div className="h-full w-3/4 bg-base-300">
+            <div className="h-1/4 bg-base-100"></div>
+            <ul className="menu p-4">
+              <li>
+                <Link href="/products">Productos</Link>
+              </li>
+              <li>
+                <Link href="/orders">Ordenes</Link>
+              </li>
+              <li>
+                <Link href="/test">Inventando</Link>
+              </li>
+              <li>
+                <Link href="/admin/">Administrar Productos</Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

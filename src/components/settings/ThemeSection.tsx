@@ -1,5 +1,5 @@
 "use client";
-import { useTheme } from "~/hooks/useTheme";
+import { useTheme } from "~/context/Theme";
 import ChangeTheme from "./ChangeTheme";
 
 const ThemeSection = () => {

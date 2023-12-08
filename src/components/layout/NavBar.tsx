@@ -1,12 +1,16 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
+
 import { useCart } from "~/context/ShoppingCart";
-import { useTheme } from "~/hooks/useTheme";
+import { useTheme } from "~/context/Theme";
+import { useUser } from "~/context/User";
+import { supabase } from "~/lib/supabase";
 
 const NavBar: React.FC = () => {
   const { colorTheme, toogleColorTheme } = useTheme();
-
   const { cart } = useCart();
+  const { isSignedIn, user } = useUser();
 
   return (
     <nav className="navbar sticky top-0 z-30 bg-base-100 bg-opacity-90 text-base-content shadow-md backdrop-blur">
@@ -17,8 +21,8 @@ const NavBar: React.FC = () => {
         <svg
           fill="none"
           viewBox="0 0 24 24"
-          width="24"
-          height="24"
+          width="30"
+          height="30"
           stroke="currentColor"
           display="inline-block"
         >
@@ -108,21 +112,19 @@ const NavBar: React.FC = () => {
             </div>
           </div>
         </div>
-        {true ? (
+        {isSignedIn ? (
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="avatar btn btn-circle btn-ghost">
               <div className="w-10 rounded-full">
-                {/* <Image
-                  src={'/placeholder.png'}
-                  priority
-                  loader={({ src }) => {
-                    return src
-                  }}
-                  unoptimized
+                <Image
+                  src={
+                    user?.avatar_url ??
+                    "https://uikoiyuwpqjwonciolgf.supabase.co/storage/v1/object/public/products/photo_2023-08-10_23-57-34.jpg?t=2023-12-08T17%3A04%3A02.363Z"
+                  }
                   alt="avatar"
                   width={40}
                   height={40}
-                /> */}
+                />
               </div>
             </label>
             <ul
@@ -146,9 +148,11 @@ const NavBar: React.FC = () => {
         ) : (
           <button
             className="btn btn-info"
-            onClick={() => {
-              window.scrollTo(0, 0);
-              return;
+            onClick={async () => {
+              let { data, error } = await supabase.auth.signInWithOAuth({
+                provider: "google",
+              });
+              console.log({ data, error });
             }}
           >
             Sign In

@@ -80,7 +80,7 @@ const ChangeTheme: React.FC<IProps> = ({
           </div>
         </button>
 
-        <div className="dropdown-content top-px mt-16 max-h-52 w-52 overflow-y-auto rounded-b-box rounded-t-box bg-base-200 text-base-content shadow-2xl">
+        <div className="scro dropdown-content top-px mt-16 max-h-52 w-52 overflow-y-auto rounded-b-box rounded-t-box bg-base-200 text-base-content shadow-2xl">
           <div className="grid grid-cols-1 gap-3 p-3" tabIndex={0}>
             {themes.map((theme, index) => (
               <button

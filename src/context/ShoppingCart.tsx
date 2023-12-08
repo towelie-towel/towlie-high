@@ -6,6 +6,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import SettingsOptions from "~/components/settings/Settings";
 import BuyingProcess from "~/components/cart/BuyingProcess";
 
+// TODO: review CartItem attributes
 export interface CartItem {
   productId: number;
   imageURL: string;
@@ -44,9 +45,6 @@ export const CartProvider: React.FC<IProps> = ({ children }) => {
     items: [],
     total: 0,
   });
-
-  console.log({ cart });
-  console.log("cookies", getCookie("cart"));
 
   useEffect(() => {
     setCookie("cart", JSON.stringify(cart));

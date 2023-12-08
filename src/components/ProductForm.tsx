@@ -19,7 +19,7 @@ interface IProps {
 }
 
 const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
-  const [upldState, setUpldState] = useState("stand_by");
+  const [upldState, setUpldState] = useState("Subir");
   const [primaryImageSize, setPrimaryImageSize] = useState<number>();
   const [secondaryImagesSize, setSecondaryImagesSize] = useState<number[]>();
   const [isAddCategorySelected, setAddCategorySelected] = useState(false);
@@ -52,20 +52,20 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
   const productNameRegex = /^[a-zA-Z0-9]+(\s[a-zA-Z0-9]+)*$/;
 
   const onSubmit2 = async (data: FormValues) => {
-    if (upldState === "uploaded") {
+    if (upldState === "Subida") {
       setPrimaryImageSize(undefined);
       setSecondaryImagesSize(undefined);
-      setUpldState("stand_by");
+      setUpldState("Subir");
       reset();
       return;
     }
     if (upldState === "error") {
-      setUpldState("stand_by");
+      setUpldState("Subir");
       return;
     }
 
     if (!data.primaryImage[0]) return;
-    setUpldState("loading");
+    setUpldState("Cargando");
 
     const formData = new FormData();
     formData.append("name", data.name);
@@ -87,7 +87,7 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
       method: "POST",
       body: formData,
     });
-    setUpldState("uploaded");
+    setUpldState("Subida");
   };
 
   return (
@@ -410,11 +410,12 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
                   <option value={"category-default"} disabled>
                     Categoría
                   </option>
-                  {categories?.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
+                  {categories.length > 0 &&
+                    categories?.map((category) => (
+                      <option key={category.id} value={category.name}>
+                        {category.name}
+                      </option>
+                    ))}
                   <option value={"Añadir"} className="btn">
                     + Añadir
                   </option>
@@ -470,13 +471,13 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
 
           <div className={`modal-action mt-0`}>
             <button
-              className={`btn ${upldState === "loading" ? "loading" : ""} ${
-                upldState === "uploaded" ? "btn-success" : ""
+              className={`btn ${upldState === "Cargando" ? "loading" : ""} ${
+                upldState === "Subida" ? "btn-success" : ""
               }
                 ${upldState === "error" ? "btn-error" : ""}
                 `}
               type="submit"
-              disabled={upldState === "loading"}
+              disabled={upldState === "Cargando"}
             >
               {upldState}
             </button>
@@ -484,7 +485,7 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
               onClick={() => {
                 setPrimaryImageSize(undefined);
                 setSecondaryImagesSize(undefined);
-                setUpldState("stand_by");
+                setUpldState("Subir");
                 setAddCategorySelected(false);
                 setOtherStockSelected(false);
                 reset();

@@ -13,14 +13,26 @@ export const useTheme = () => {
 
   useEffect(() => {
     setCookie("color_theme", colorTheme);
+    document
+      .querySelector("html")
+      ?.setAttribute(
+        "data-theme",
+        colorTheme === "light" ? lightTheme : darkTheme,
+      );
   }, [colorTheme]);
 
   useEffect(() => {
     setCookie("light_theme", lightTheme);
+    if (colorTheme === "light") {
+      document.querySelector("html")?.setAttribute("data-theme", lightTheme);
+    }
   }, [lightTheme]);
 
   useEffect(() => {
     setCookie("dark_theme", darkTheme);
+    if (colorTheme === "dark") {
+      document.querySelector("html")?.setAttribute("data-theme", darkTheme);
+    }
   }, [darkTheme]);
 
   useEffect(() => {
@@ -32,11 +44,7 @@ export const useTheme = () => {
   }, [bgTheme]);
 
   const toogleColorTheme = () => {
-    if (colorTheme === "light") {
-      setColorTheme(darkTheme);
-    } else if (colorTheme === "dark") {
-      setColorTheme(lightTheme);
-    }
+    setColorTheme(colorTheme === "light" ? "dark" : "light");
   };
 
   return {

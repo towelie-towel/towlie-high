@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 
 import "~/styles/globals.css";
 import Providers from "~/components/layout/Providers";
+import { conn } from "~/lib/db";
+import Layout from "~/components/layout/Layout";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,37 +17,61 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const cookieStore = cookies();
-  const dataTheme = cookieStore.get("color_theme");
-  const lightTheme = cookieStore.get("light_theme");
-  const darkTheme = cookieStore.get("dark_theme");
-  const gradientTheme = cookieStore.get("gradient_theme");
-  const bgColorTheme = cookieStore.get("bg_theme");
+  let dataTheme = cookieStore.get("color_theme")?.value;
+  let lightTheme = cookieStore.get("light_theme")?.value;
+  let darkTheme = cookieStore.get("dark_theme")?.value;
+  let gradientTheme = cookieStore.get("gradient_theme")?.value;
+  let bgColorTheme = cookieStore.get("bg_theme")?.value;
+
+  if (
+    !dataTheme ||
+    !lightTheme ||
+    !darkTheme ||
+    !gradientTheme ||
+    !bgColorTheme
+  ) {
+    const theme = await conn.query("SELECT * FROM theme WHERE id = 1");
+    const themeData = theme.rows[0];
+    console.log(themeData);
+    dataTheme = dataTheme ?? themeData.color_theme;
+    lightTheme = lightTheme ?? themeData.light_theme;
+    darkTheme = darkTheme ?? themeData.dark_theme;
+    gradientTheme = gradientTheme ?? themeData.gradient_theme;
+    bgColorTheme = bgColorTheme ?? themeData.bg_theme;
+  }
+
   return (
     <html
-      data-theme={
-        (dataTheme?.value === "light" ? lightTheme?.value : darkTheme?.value) ??
-        "light"
-      }
-      data-light_theme={lightTheme?.value}
-      data-dark_theme={darkTheme?.value}
-      data-gradient_theme={gradientTheme?.value}
-      data-bg_theme={bgColorTheme?.value}
+      className="h-full"
+      data-theme={(dataTheme === "light" ? lightTheme : darkTheme) ?? "light"}
+      data-light_theme={lightTheme}
+      data-dark_theme={darkTheme}
+      data-gradient_theme={gradientTheme}
+      data-bg_theme={bgColorTheme}
       lang="en"
     >
       <body
-        className={`${
-          gradientTheme?.value === "true"
+        className={`h-full ${
+          gradientTheme === "true"
             ? "bg-gradient-to-br from-primary to-secondary"
-            : "bg-" + bgColorTheme?.value
+            : "bg-" + bgColorTheme
         }`}
       >
-        <Providers>{children}</Providers>
+        <Providers
+          colorThemeProp={dataTheme}
+          lightThemeProp={lightTheme}
+          darkThemeProp={darkTheme}
+          gradientThemeProp={gradientTheme}
+          bgThemeProp={bgColorTheme}
+        >
+          <Layout>{children}</Layout>
+        </Providers>
       </body>
     </html>
   );
