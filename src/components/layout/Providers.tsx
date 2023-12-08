@@ -29,11 +29,11 @@ const Providers: React.FC<IProps> = ({
       gradientThemeProp={gradientThemeProp}
       bgThemeProp={bgThemeProp}
     >
-      <CartProvider>
-        <UserProvider>
+      <UserProvider>
+        <CartProvider>
           <ToastProvider>{children}</ToastProvider>
-        </UserProvider>
-      </CartProvider>
+        </CartProvider>
+      </UserProvider>
     </ThemeProvider>
   );
 };
