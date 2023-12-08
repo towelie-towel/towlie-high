@@ -1,10 +1,18 @@
 "use client";
 import Image from "next/image";
 import { getCookie, setCookie } from "cookies-next";
-import { createContext, useContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
 import SettingsOptions from "~/components/settings/Settings";
 import BuyingProcess from "~/components/cart/BuyingProcess";
+import { Category, Product } from "~/interfaces/products";
 
 // TODO: review CartItem attributes
 export interface CartItem {
@@ -24,6 +32,10 @@ export interface CartContext {
   cart: Cart;
   addToCart: (item: CartItem) => void;
   removeFromCart: (productId: number) => void;
+  products: Product[];
+  categories: Category[];
+  getProducts: () => void;
+  getCategories: () => void;
 }
 
 const CartContext = createContext<CartContext | null>(null);
@@ -45,8 +57,23 @@ export const CartProvider: React.FC<IProps> = ({ children }) => {
     items: [],
     total: 0,
   });
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  const getProducts = async () => {
+    const res = await fetch("/api/products");
+    const data = (await res.json()) as Product[];
+    setProducts(data);
+  };
+  const getCategories = async () => {
+    const res = await fetch("/api/categories");
+    const data = (await res.json()) as Category[];
+    setCategories(data);
+  };
 
   useEffect(() => {
+    void getProducts();
+    void getCategories();
     setCookie("cart", JSON.stringify(cart));
   }, [cart]);
 
@@ -90,7 +117,17 @@ export const CartProvider: React.FC<IProps> = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        products,
+        categories,
+        getProducts,
+        getCategories,
+      }}
+    >
       <input type="checkbox" id="cart-modal" className="modal-toggle" />
       <label
         htmlFor="cart-modal"

@@ -111,7 +111,7 @@ export default function InstagramCarousel() {
         {post.images.map((image) => (
           <div
             key={image.src}
-            className="carousel-item item-1 relative w-full pb-[140%]"
+            className="item-1 carousel-item relative w-full pb-[140%]"
           >
             <Image
               src={image.src}
