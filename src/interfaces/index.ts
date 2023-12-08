@@ -9,6 +9,8 @@ export interface Product {
     active: boolean;
     deleted: boolean;
     stock: number;
+    slug: string;
+    search_key: string;
     category_id: number;
     primary_image: Image;
     secondary_images: Image[];
