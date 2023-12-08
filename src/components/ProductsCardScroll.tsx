@@ -29,7 +29,9 @@ const ProductsCardScroll: React.FC = () => {
         <div className="absolute right-2 top-3 flex">
           <div className="divider divider-horizontal mx-0" />
           <svg
-            onClick={() => {}}
+            onClick={() => {
+              console.log("nothing");
+            }}
             style={{
               fill: colorTheme === "light" ? "black" : "white",
             }}
