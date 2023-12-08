@@ -106,9 +106,7 @@ const ProductsCardScroll: React.FC = () => {
         {products.length > 0 &&
           (s
             ? products.filter(
-                (product) =>
-                  product.search_key?.includes(s.toLowerCase()) ||
-                  product.name.toLowerCase().includes(s.toLowerCase()),
+                (product) => product.search_keys?.includes(s.toLowerCase()),
               )
             : products
           )?.map((product) => (
