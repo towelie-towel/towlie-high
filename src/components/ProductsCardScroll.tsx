@@ -16,8 +16,8 @@ const ProductsCardScroll: React.FC = () => {
   const s = searchParams.get("s");
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center overflow-scroll">
-      <div className="relative my-5 h-12">
+    <div className="flex h-full w-full flex-col items-center justify-center">
+      <div className="relative my-4 h-12">
         <input
           onChange={(e) => {
             void router.push(`/products?s=${e.target.value}`);
@@ -25,9 +25,9 @@ const ProductsCardScroll: React.FC = () => {
           defaultValue={s ?? ""}
           type="text"
           placeholder="Type here"
-          className="input input-bordered input-primary w-full max-w-xs pr-12"
+          className="input input-bordered w-full max-w-xs pr-12"
         />
-        <div className="absolute right-2 top-3 flex">
+        <div className="absolute right-2 top-[14px] flex">
           <div className="divider divider-horizontal mx-0" />
           <svg
             onClick={() => {
@@ -68,7 +68,7 @@ const ProductsCardScroll: React.FC = () => {
           </svg>
         </div>
       </div>
-      <div className="mb-8 flex max-w-lg flex-wrap items-center justify-around">
+      <div className="flex h-[calc(100vh-9rem-2px)] max-w-lg flex-wrap items-center justify-around overflow-scroll">
         {/* Products Placeholders */}
         {products.length === 0 &&
           Array(6)
@@ -76,7 +76,7 @@ const ProductsCardScroll: React.FC = () => {
             .map((_, index) => (
               <div
                 key={index}
-                className="card glass card-compact mt-8 w-[45%] overflow-hidden rounded-xl"
+                className="card glass card-compact mb-8 w-[45%] overflow-hidden rounded-xl"
               >
                 <div className="w-full animate-pulse  bg-current pb-[100%] opacity-25"></div>
                 <div className="card-body">
@@ -114,7 +114,7 @@ const ProductsCardScroll: React.FC = () => {
           )?.map((product) => (
             <div
               key={product.id}
-              className="card glass card-compact mt-8 w-[45%]"
+              className="card glass card-compact mb-8 w-[45%]"
             >
               <figure className="relative w-full overflow-hidden pb-[100%]">
                 <Link href={`products/${product.slug}`}>

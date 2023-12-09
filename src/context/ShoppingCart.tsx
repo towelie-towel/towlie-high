@@ -3,8 +3,6 @@ import Image from "next/image";
 import { getCookie, setCookie } from "cookies-next";
 import { createContext, useContext, useState, useEffect } from "react";
 
-import SettingsOptions from "~/components/settings/Settings";
-import BuyingProcess from "~/components/cart/BuyingProcess";
 import { type Category, type Product } from "~/interfaces";
 
 // TODO: review CartItem attributes
@@ -266,8 +264,6 @@ export const CartProvider: React.FC<IProps> = ({ children }) => {
           </div>
         </label>
       </label>
-      <BuyingProcess />
-      <SettingsOptions />
 
       {children}
     </CartContext.Provider>

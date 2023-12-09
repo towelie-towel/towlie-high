@@ -1,9 +1,13 @@
 import Link from "next/link";
 import NavBar from "./NavBar";
+import BuyingProcess from "../cart/BuyingProcess";
+import SettingsOptions from "../settings/Settings";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <div className="flex h-screen w-screen flex-col">
+      <BuyingProcess />
+      <SettingsOptions />
       <div className="drawer-mobile drawer lg:drawer-open">
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content relative flex flex-col">
