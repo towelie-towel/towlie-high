@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import ProductForm from "~/components/ProductForm";
 import ModalConfirm from "~/components/ModalConfirm";
@@ -11,35 +11,20 @@ import {
 } from "react-beautiful-dnd";
 import { StrictModeDroppable as Droppable } from "~/helpers/DroppableStrictMode";
 import { useInput } from "~/hooks/useInput";
-import type { Product, Category } from "~/interfaces";
+import { useCart } from "~/context/ShoppingCart";
 
 const ProductsTable: React.FC = () => {
   const [isAnyProductSelected, setIsAnyProductSelected] = useState(false);
 
   const { editInput, inputProps } = useInput();
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
+
+  const { categories, products, getProducts, getCategories } = useCart();
 
   const onDragEndHandler = async (result: DropResult) => {
     console.log(result, isAnyProductSelected);
     await getProducts();
     await getCategories();
   };
-  const getProducts = async () => {
-    const res = await fetch("/api/products");
-    const data = (await res.json()) as Product[];
-    setProducts(data);
-  };
-  const getCategories = async () => {
-    const res = await fetch("/api/categories");
-    const data = (await res.json()) as Category[];
-    setCategories(data);
-  };
-
-  useEffect(() => {
-    void getProducts();
-    void getCategories();
-  }, []);
 
   function refetchProducts() {
     throw new Error("Function not implemented.");
@@ -466,11 +451,7 @@ const ProductsTable: React.FC = () => {
             <th>
               <div className="flex flex-row justify-around">
                 <div className="flex items-center space-x-3">
-                  <ProductForm
-                    onUploadSucces={() => {
-                      void refetchProducts();
-                    }}
-                  />
+                  <ProductForm />
                 </div>
                 <ModalConfirm
                   onOkFn={() => {

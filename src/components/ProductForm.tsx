@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import type { Category } from "~/interfaces";
+import { useCart } from "~/context/ShoppingCart";
 
 interface FormValues {
   name: string;
@@ -13,28 +13,14 @@ interface FormValues {
   primaryImage: FileList;
 }
 
-interface IProps {
-  onUploadSucces: () => void;
-}
-
-const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
+const ProductForm: React.FC = () => {
   const [upldState, setUpldState] = useState("Subir");
   const [primaryImageSize, setPrimaryImageSize] = useState<number>();
   const [secondaryImagesSize, setSecondaryImagesSize] = useState<number[]>();
   const [isAddCategorySelected, setAddCategorySelected] = useState(false);
   const [isOtherStockSelected, setOtherStockSelected] = useState(false);
 
-  const [categories, setCategories] = useState<Category[]>([]);
-
-  const getCategories = async () => {
-    const res = await fetch("/api/categories");
-    const data = (await res.json()) as Category[];
-    setCategories(data);
-  };
-
-  useEffect(() => {
-    void getCategories();
-  }, []);
+  const { categories, getProducts, getCategories } = useCart();
 
   const {
     handleSubmit,
@@ -87,7 +73,8 @@ const ProductForm: React.FC<IProps> = ({ onUploadSucces }) => {
       body: formData,
     });
     console.log(response);
-    onUploadSucces();
+    void getProducts();
+    void getCategories();
     setUpldState("Subida");
   };
 
