@@ -360,9 +360,10 @@ export default function InstagramCarousel() {
                 {post.likes.map((image, index) => (
                   <Image
                     key={image.alt}
-                    className={`absolute z-10 rounded-full left-[${
-                      index * 15
-                    }px]`}
+                    className={`absolute z-0 rounded-full`}
+                    style={{
+                      left: index * 10,
+                    }}
                     src={image.url}
                     alt={image.alt}
                     width={20}
@@ -373,7 +374,7 @@ export default function InstagramCarousel() {
                 <div className="left-[15px] w-[20px]"></div>
               </div>
               <div className="flex h-full items-center">
-                <h2 className="ml-1 text-xs font-medium">
+                <h2 className="ml-6 text-xs font-medium">
                   Liked by{" "}
                   <span className="font-semibold">{post.likes[0]?.alt}</span>{" "}
                   and <span className="font-bold">others</span>

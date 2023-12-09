@@ -43,7 +43,6 @@ export default async function RootLayout({
 
   return (
     <html
-      className="h-full"
       data-theme={(dataTheme === "light" ? lightTheme : darkTheme) ?? "light"}
       data-light_theme={lightTheme}
       data-dark_theme={darkTheme}
@@ -52,7 +51,7 @@ export default async function RootLayout({
       lang="en"
     >
       <body
-        className={`h-full ${
+        className={`h-screen ${
           gradientTheme === "true"
             ? "bg-gradient-to-br from-primary to-secondary"
             : "bg-" + bgColorTheme

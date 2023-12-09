@@ -16,12 +16,13 @@ const ProductsCardScroll: React.FC = () => {
   const s = searchParams.get("s");
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center">
-      <div className="relative mt-8 h-12">
+    <div className="flex h-full w-full flex-col items-center justify-center overflow-scroll">
+      <div className="relative my-5 h-12">
         <input
           onChange={(e) => {
             void router.push(`/products?s=${e.target.value}`);
           }}
+          defaultValue={s ?? ""}
           type="text"
           placeholder="Type here"
           className="input input-bordered input-primary w-full max-w-xs pr-12"

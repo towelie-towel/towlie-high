@@ -13,7 +13,7 @@ const NavBar: React.FC = () => {
   const { isSignedIn, user } = useUser();
 
   return (
-    <nav className="navbar sticky top-0 z-30 bg-base-100 bg-opacity-90 text-base-content shadow-md backdrop-blur">
+    <nav className="navbar bg-base-100 bg-opacity-90 text-base-content shadow-md backdrop-blur">
       <label
         htmlFor="my-drawer-3"
         className="btn btn-square btn-ghost min-[1024px]:hidden"
