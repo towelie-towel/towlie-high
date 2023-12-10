@@ -17,3 +17,9 @@ html {
 .scrollbar-none {
   scrollbar-width: none;
 }
+
+.singleLine {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

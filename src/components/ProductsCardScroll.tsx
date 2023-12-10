@@ -37,178 +37,148 @@ const ProductsCardScroll: React.FC = () => {
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
-      <div className="my-4 flex flex-col gap-2">
-        <div className="relative h-12">
-          <input
-            onChange={(e) => {
-              keyFilter.current = e.target.value;
-              setDebouncedFilter(e.target.value);
-            }}
-            defaultValue={filters.keys}
-            type="text"
-            placeholder="Busca un Producto"
-            className="input input-bordered w-full max-w-xs pr-12"
-          />
-          <div className="absolute right-2 top-[14px] flex">
-            <div className="mr-2 w-[1px] bg-[var(--fallback-bc,oklch(var(--bc)/0.1))]" />
-            <svg
-              onClick={() => {
-                console.log("aa");
+      <div className="flex h-[calc(100vh-4rem)] flex-wrap items-center justify-around overflow-scroll scroll-smooth">
+        <div className="my-4 flex w-full flex-col items-center justify-center gap-2">
+          <div className="relative h-12 w-52">
+            <input
+              onChange={(e) => {
+                keyFilter.current = e.target.value;
+                setDebouncedFilter(e.target.value);
               }}
-              style={{
-                fill: colorTheme === "light" ? "black" : "white",
-              }}
-              height="20px"
-              width="20px"
-              version="1.1"
-              id="_x32_"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              xmlSpace="preserve"
-            >
-              <g>
-                <path
-                  className="st0"
-                  d="M312.069,53.445c-71.26-71.26-187.194-71.26-258.454,0c-71.261,71.26-71.261,187.206,0,258.466
+              defaultValue={filters.keys}
+              type="text"
+              placeholder="Busca un Producto"
+              className="input input-bordered w-full max-w-xs pr-12"
+            />
+            <div className="absolute right-2 top-[14px] flex">
+              <div className="mr-2 w-[1px] bg-[var(--fallback-bc,oklch(var(--bc)/0.1))]" />
+              <svg
+                onClick={() => {
+                  console.log("aa");
+                }}
+                style={{
+                  fill: colorTheme === "light" ? "black" : "white",
+                }}
+                height="20px"
+                width="20px"
+                version="1.1"
+                id="_x32_"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                xmlSpace="preserve"
+              >
+                <g>
+                  <path
+                    className="st0"
+                    d="M312.069,53.445c-71.26-71.26-187.194-71.26-258.454,0c-71.261,71.26-71.261,187.206,0,258.466
       c71.26,71.26,187.194,71.26,258.454,0S383.329,124.705,312.069,53.445z M286.694,286.536
       c-57.351,57.34-150.353,57.34-207.704-0.011s-57.351-150.353,0-207.693c57.351-57.351,150.342-57.351,207.693,0
       S344.045,229.174,286.694,286.536z"
-                />
-                <path
-                  className="st0"
-                  d="M101.911,112.531c-29.357,37.725-31.801,89.631-7.321,129.702c1.877,3.087,5.902,4.048,8.978,2.182
+                  />
+                  <path
+                    className="st0"
+                    d="M101.911,112.531c-29.357,37.725-31.801,89.631-7.321,129.702c1.877,3.087,5.902,4.048,8.978,2.182
       c3.065-1.888,4.037-5.903,2.16-8.978c-21.666-35.456-19.506-81.538,6.469-114.876c2.226-2.837,1.713-6.938-1.135-9.154
       C108.227,109.193,104.125,109.695,101.911,112.531z"
-                />
-                <path
-                  className="st0"
-                  d="M498.544,447.722l-132.637-129.2c-7.255-7.07-18.84-6.982-26.008,0.174l-21.033,21.033
+                  />
+                  <path
+                    className="st0"
+                    d="M498.544,447.722l-132.637-129.2c-7.255-7.07-18.84-6.982-26.008,0.174l-21.033,21.033
       c-7.156,7.156-7.234,18.742-0.153,25.986l129.19,132.636c14.346,17.324,35.542,18.35,51.917,1.964
       C516.216,483.951,515.857,462.068,498.544,447.722z"
-                />
-              </g>
-            </svg>
+                  />
+                </g>
+              </svg>
+            </div>
           </div>
-        </div>
-        <div>
-          <select
-            ref={selectRef}
-            defaultValue={"category"}
-            onChange={(e) => {
-              handleFilterChange("categories", [
-                ...filters.categories,
-                parseInt(e.target.value),
-              ]);
-              if (selectRef.current) selectRef.current.value = "category";
-            }}
-            className="select select-bordered w-full max-w-xs"
-          >
-            <option value={"category"} disabled>
-              Categoría
-            </option>
-            {categories.length > 0 &&
-              categories?.map((category) => (
-                <option
-                  disabled={filters.categories.includes(category.id)}
-                  key={category.id}
-                  value={category.id}
-                >
-                  {category.name}
-                </option>
-              ))}
-          </select>
-        </div>
-        <div className="flex gap-2">
-          <input
-            onChange={(e) => {
-              minFilter.current = parseInt(e.target.value);
-              setDebouncedFilter(e.target.value);
-            }}
-            defaultValue={filters.price.min ?? undefined}
-            type="number"
-            placeholder="Mín"
-            className="input input-bordered w-24"
-          />
-          <input
-            onChange={(e) => {
-              maxFilter.current = parseInt(e.target.value);
-              setDebouncedFilter(e.target.value);
-            }}
-            defaultValue={filters.price.max ?? undefined}
-            type="number"
-            placeholder="Máx"
-            className="input input-bordered w-24"
-          />
-        </div>
-      </div>
-      <div className="my-2 flex gap-2">
-        {filters.categories.map((category) => (
-          <div
-            className="badge badge-neutral"
-            key={category}
-            onClick={() => {
-              handleFilterChange(
-                "categories",
-                filters.categories.filter((c) => c !== category),
-              );
-              if (selectRef.current) selectRef.current.value = "category";
-            }}
-          >
-            {categories.find((c) => c.id === category)?.name}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="inline-block h-4 w-4 stroke-current"
+          <div className="w-52">
+            <select
+              ref={selectRef}
+              defaultValue={"category"}
+              onChange={(e) => {
+                handleFilterChange("categories", [
+                  ...filters.categories,
+                  parseInt(e.target.value),
+                ]);
+                if (selectRef.current) selectRef.current.value = "category";
+              }}
+              className="select select-bordered w-full max-w-xs"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
-            </svg>
+              <option value={"category"} disabled>
+                Categoría
+              </option>
+              {categories.length > 0 &&
+                categories?.map((category) => (
+                  <option
+                    disabled={filters.categories.includes(category.id)}
+                    key={category.id}
+                    value={category.id}
+                  >
+                    {category.name}
+                  </option>
+                ))}
+            </select>
           </div>
-        ))}
-      </div>
-      <div className="flex h-[calc(100vh-12rem-2px)] max-w-lg flex-wrap items-center justify-around overflow-scroll">
-        {/* Products Placeholders */}
-        {filteredProducts.length === 0 &&
-          Array(6)
-            .fill(0)
-            .map((_, index) => (
-              <div
-                key={index}
-                className="card glass card-compact mb-8 w-[45%] overflow-hidden rounded-xl"
+          <div className="flex w-52 justify-between gap-2">
+            <input
+              onChange={(e) => {
+                minFilter.current = parseInt(e.target.value);
+                setDebouncedFilter(e.target.value);
+              }}
+              defaultValue={filters.price.min ?? undefined}
+              type="number"
+              placeholder="Mín"
+              className="input input-bordered w-24"
+            />
+            <input
+              onChange={(e) => {
+                maxFilter.current = parseInt(e.target.value);
+                setDebouncedFilter(e.target.value);
+              }}
+              defaultValue={filters.price.max ?? undefined}
+              type="number"
+              placeholder="Máx"
+              className="input input-bordered w-24"
+            />
+          </div>
+        </div>
+
+        <div className="my-2 flex h-[1.25rem] w-[90vw] gap-2 overflow-x-scroll px-2">
+          {filters.categories.map((category) => (
+            <div
+              className="badge badge-neutral gap-2"
+              key={category}
+              onClick={() => {
+                handleFilterChange(
+                  "categories",
+                  filters.categories.filter((c) => c !== category),
+                );
+                if (selectRef.current) selectRef.current.value = "category";
+              }}
+            >
+              <h4 className="singleLine">
+                {categories.find((c) => c.id === category)?.name}
+              </h4>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="inline-block h-4 w-4 stroke-current"
               >
-                <div className="w-full animate-pulse  bg-current pb-[100%] opacity-25"></div>
-                <div className="card-body">
-                  <h2 className="h-4 w-2/3 animate-pulse rounded-lg bg-current opacity-25"></h2>
-                  <h2 className="h-4 w-1/2 animate-pulse rounded-lg bg-current opacity-25"></h2>
-                  <div className="card-actions justify-end">
-                    <button className="btn btn-primary">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height={24}
-                        width={24}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-        {/* Actual products cards */}
-        {filteredProducts.length > 0 &&
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+            </div>
+          ))}
+        </div>
+
+        <div className="divider divider-neutral w-3/4">Todos</div>
+        {filteredProducts.length > 0 ? (
           filteredProducts?.map((product) => (
             <div
               key={product.id}
@@ -284,7 +254,10 @@ const ProductsCardScroll: React.FC = () => {
                 </div>
               </div>
             </div>
-          ))}
+          ))
+        ) : (
+          <h2>No se encontraron productos con ese criterio</h2>
+        )}
       </div>
     </div>
   );
