@@ -14,7 +14,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <NavBar />
           {children}
         </div>
-        <div className="drawer-side">
+        <div className="drawer-side z-20">
           <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
           <ul className="menu min-h-full w-80 bg-base-300 p-4">
             <li>
