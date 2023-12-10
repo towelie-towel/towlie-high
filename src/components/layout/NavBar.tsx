@@ -129,7 +129,7 @@ const NavBar: React.FC = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu-compact menu dropdown-content mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+              className="menu-compact menu dropdown-content z-10 mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
             >
               <li>
                 <Link href={"/profile"} className="justify-between">

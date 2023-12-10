@@ -1,5 +1,5 @@
 "use client";
-import CartProvider from "~/context/ShoppingCart";
+import CartProvider, { type Cart } from "~/context/ShoppingCart";
 import ThemeProvider from "~/context/Theme";
 import { ToastProvider } from "~/context/Toaster";
 import { UserProvider } from "~/context/User";
@@ -11,6 +11,7 @@ interface IProps {
   darkThemeProp: string;
   gradientThemeProp: string;
   bgThemeProp: string;
+  cartProp: Cart;
 }
 
 const Providers: React.FC<IProps> = ({
@@ -20,6 +21,7 @@ const Providers: React.FC<IProps> = ({
   darkThemeProp,
   gradientThemeProp,
   bgThemeProp,
+  cartProp,
 }) => {
   return (
     <ThemeProvider
@@ -30,7 +32,7 @@ const Providers: React.FC<IProps> = ({
       bgThemeProp={bgThemeProp}
     >
       <UserProvider>
-        <CartProvider>
+        <CartProvider cartProp={cartProp}>
           <ToastProvider>{children}</ToastProvider>
         </CartProvider>
       </UserProvider>

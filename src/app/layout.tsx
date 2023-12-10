@@ -5,6 +5,7 @@ import Providers from "~/components/layout/Providers";
 import { conn } from "~/lib/db";
 import Layout from "~/components/layout/Layout";
 import { type Theme } from "~/interfaces";
+import { type Cart } from "~/context/ShoppingCart";
 
 export const metadata = {
   title: "Cuba Store",
@@ -23,6 +24,7 @@ export default async function RootLayout({
   let darkTheme = cookieStore.get("dark_theme")?.value;
   let gradientTheme = cookieStore.get("gradient_theme")?.value;
   let bgColorTheme = cookieStore.get("bg_theme")?.value;
+  const cart = cookieStore.get("cart")?.value;
 
   if (
     !dataTheme ||
@@ -58,6 +60,9 @@ export default async function RootLayout({
         }`}
       >
         <Providers
+          cartProp={
+            (JSON.parse(cart ?? "null") as Cart) ?? { items: [], total: 0 }
+          }
           colorThemeProp={dataTheme ?? ""}
           lightThemeProp={lightTheme ?? ""}
           darkThemeProp={darkTheme ?? ""}
