@@ -14,12 +14,20 @@ const ProductsCardScroll: React.FC = () => {
   const { addToast } = useToast();
   const { colorTheme } = useTheme();
 
+  const selectRef = useRef<HTMLSelectElement>(null);
+
   const keyFilter = useRef(filters.keys);
+  const minFilter = useRef(filters.price.min);
+  const maxFilter = useRef(filters.price.max);
   const [debouncedFilter, setDebouncedFilter] = useState(keyFilter.current);
 
   useEffect(() => {
     const handler = setTimeout(() => {
       handleFilterChange("keys", keyFilter.current);
+      handleFilterChange("price", {
+        min: minFilter.current,
+        max: maxFilter.current,
+      });
     }, 1000);
 
     return () => {
@@ -29,7 +37,7 @@ const ProductsCardScroll: React.FC = () => {
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
-      <div className="my-4 gap-2">
+      <div className="my-4 flex flex-col gap-2">
         <div className="relative h-12">
           <input
             onChange={(e) => {
@@ -38,11 +46,11 @@ const ProductsCardScroll: React.FC = () => {
             }}
             defaultValue={filters.keys}
             type="text"
-            placeholder="Type here"
+            placeholder="Busca un Producto"
             className="input input-bordered w-full max-w-xs pr-12"
           />
           <div className="absolute right-2 top-[14px] flex">
-            <div className="divider divider-horizontal mx-0" />
+            <div className="mr-2 w-[1px] bg-[var(--fallback-bc,oklch(var(--bc)/0.1))]" />
             <svg
               onClick={() => {
                 console.log("aa");
@@ -84,25 +92,84 @@ const ProductsCardScroll: React.FC = () => {
         </div>
         <div>
           <select
+            ref={selectRef}
+            defaultValue={"category"}
             onChange={(e) => {
               handleFilterChange("categories", [
                 ...filters.categories,
                 parseInt(e.target.value),
               ]);
+              if (selectRef.current) selectRef.current.value = "category";
             }}
             className="select select-bordered w-full max-w-xs"
           >
-            <option disabled selected>
+            <option value={"category"} disabled>
               Categoría
             </option>
             {categories.length > 0 &&
               categories?.map((category) => (
-                <option key={category.id} value={category.id}>
+                <option
+                  disabled={filters.categories.includes(category.id)}
+                  key={category.id}
+                  value={category.id}
+                >
                   {category.name}
                 </option>
               ))}
           </select>
         </div>
+        <div className="flex gap-2">
+          <input
+            onChange={(e) => {
+              minFilter.current = parseInt(e.target.value);
+              setDebouncedFilter(e.target.value);
+            }}
+            defaultValue={filters.price.min ?? undefined}
+            type="number"
+            placeholder="Mín"
+            className="input input-bordered w-24"
+          />
+          <input
+            onChange={(e) => {
+              maxFilter.current = parseInt(e.target.value);
+              setDebouncedFilter(e.target.value);
+            }}
+            defaultValue={filters.price.max ?? undefined}
+            type="number"
+            placeholder="Máx"
+            className="input input-bordered w-24"
+          />
+        </div>
+      </div>
+      <div className="my-2 flex gap-2">
+        {filters.categories.map((category) => (
+          <div
+            className="badge badge-neutral"
+            key={category}
+            onClick={() => {
+              handleFilterChange(
+                "categories",
+                filters.categories.filter((c) => c !== category),
+              );
+              if (selectRef.current) selectRef.current.value = "category";
+            }}
+          >
+            {categories.find((c) => c.id === category)?.name}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              className="inline-block h-4 w-4 stroke-current"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </div>
+        ))}
       </div>
       <div className="flex h-[calc(100vh-12rem-2px)] max-w-lg flex-wrap items-center justify-around overflow-scroll">
         {/* Products Placeholders */}

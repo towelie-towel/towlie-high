@@ -18,8 +18,14 @@ const useFilter = (products: Product[]) => {
   }>({
     keys: keys,
     price: {
-      min: minPrice ? parseInt(minPrice) : null,
-      max: maxPrice ? parseInt(maxPrice) : null,
+      min:
+        minPrice && !isNaN(minPrice as unknown as number)
+          ? parseInt(minPrice)
+          : null,
+      max:
+        maxPrice && !isNaN(maxPrice as unknown as number)
+          ? parseInt(maxPrice)
+          : null,
     },
     categories: categories.map((c) => parseInt(c)),
   });
@@ -39,10 +45,8 @@ const useFilter = (products: Product[]) => {
           filters.categories.length > 0
             ? `&c=${filters.categories.join(",")}`
             : ""
-        }${
-          filters.price.min !== null ? `&min_price=${filters.price.min}` : ""
-        }${
-          filters.price.max !== null ? `&max_price=${filters.price.max}` : ""
+        }${filters.price.min ? `&min_price=${filters.price.min}` : ""}${
+          filters.price.max ? `&max_price=${filters.price.max}` : ""
         }`,
       );
     }
@@ -50,11 +54,9 @@ const useFilter = (products: Product[]) => {
     if (filterName === "categories" && Array.isArray(value)) {
       router.push(
         `/products/?s=${filters.keys}${
-          filters.categories.length > 0 ? `&c=${value.join(",")}` : ""
-        }${
-          filters.price.min !== null ? `&min_price=${filters.price.min}` : ""
-        }${
-          filters.price.max !== null ? `&max_price=${filters.price.max}` : ""
+          value.length > 0 ? `&c=${value.join(",")}` : ""
+        }${filters.price.min ? `&min_price=${filters.price.min}` : ""}${
+          filters.price.max ? `&max_price=${filters.price.max}` : ""
         }`,
       );
     }
@@ -69,8 +71,8 @@ const useFilter = (products: Product[]) => {
           filters.categories.length > 0
             ? `&c=${filters.categories.join(",")}`
             : ""
-        }${value.min !== null ? `&min_price=${value.min}` : ""}${
-          value.max !== null ? `&max_price=${value.max}` : ""
+        }${value.min ? `&min_price=${value.min}` : ""}${
+          value.max ? `&max_price=${value.max}` : ""
         }`,
       );
     }
@@ -82,8 +84,8 @@ const useFilter = (products: Product[]) => {
         .toLowerCase()
         .includes(filters.keys.toLowerCase());
       const matchPrice =
-        (filters.price.min === null || product.price >= filters.price.min) &&
-        (filters.price.max === null || product.price <= filters.price.max);
+        (!filters.price.min || product.price >= filters.price.min) &&
+        (!filters.price.max || product.price <= filters.price.max);
       const matchCategories =
         filters.categories.length === 0 ||
         filters.categories.includes(product.category_id);
