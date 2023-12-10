@@ -7,7 +7,7 @@ const useFilter = (products: Product[]) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const keys = searchParams.get("s") ?? "";
-  const categories = searchParams.getAll("c") ?? [];
+  const categories = searchParams.get("c");
   const minPrice = searchParams.get("min_price");
   const maxPrice = searchParams.get("max_price");
 
@@ -27,7 +27,7 @@ const useFilter = (products: Product[]) => {
           ? parseInt(maxPrice)
           : null,
     },
-    categories: categories.map((c) => parseInt(c)),
+    categories: categories?.split(",")?.map((c) => parseInt(c)) ?? [],
   });
 
   const handleFilterChange = (
