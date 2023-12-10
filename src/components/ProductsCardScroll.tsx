@@ -37,7 +37,7 @@ const ProductsCardScroll: React.FC = () => {
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
-      <div className="flex h-[calc(100vh-4rem)] flex-wrap items-center justify-around overflow-scroll scroll-smooth">
+      <div className="flex h-[calc(100vh-4rem)] flex-wrap items-center justify-around overflow-scroll scroll-smooth px-4">
         <div className="my-4 flex w-full flex-col items-center justify-center gap-2">
           <div className="relative h-12 w-52">
             <input
@@ -143,7 +143,7 @@ const ProductsCardScroll: React.FC = () => {
           </div>
         </div>
 
-        <div className="my-2 flex h-[1.25rem] w-[90%] justify-center gap-2 overflow-x-scroll px-2">
+        <div className="flex h-[1.25rem] w-3/4 max-w-[80vw] gap-2 overflow-x-scroll px-2">
           {filters.categories.map((category) => (
             <div
               className="badge badge-neutral gap-2"
