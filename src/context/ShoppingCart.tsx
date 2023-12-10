@@ -71,6 +71,41 @@ export const CartProvider: React.FC<IProps> = ({
     setCookie("cart", JSON.stringify(cart));
   }, [cart]);
 
+  useEffect(() => {
+    function toggleCartQuery() {
+      if (modalToggle) {
+        console.log(modalToggle)
+        const url = new URL(window.location.href);
+        if (modalToggle.checked) {
+          url.searchParams.set("cart", "open");
+        } else {
+          url.searchParams.delete("cart");
+        }
+        window.history.pushState({}, "", url.toString());
+      }
+    }
+
+    const modalToggle = document.getElementById(
+      "cart-modal",
+    ) as HTMLInputElement | null;
+
+    const url = new URL(window.location.href);
+    const cartParam = url.searchParams.get("cart");
+    if (cartParam === "open" && modalToggle) {
+      modalToggle.checked = true;
+    }
+
+    if (modalToggle) {
+      modalToggle.addEventListener("change", toggleCartQuery);
+    }
+
+    return () => {
+      if (modalToggle) {
+        modalToggle.removeEventListener("change", toggleCartQuery);
+      }
+    };
+  }, []);
+
   const addToCart = (newItem: CartItem) => {
     const existItem = cart.items.find(
       (item) => item.productId === newItem.productId,

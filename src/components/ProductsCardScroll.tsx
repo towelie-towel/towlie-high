@@ -37,7 +37,7 @@ const ProductsCardScroll: React.FC = () => {
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
-      <div className="flex h-[calc(100vh-4rem-2px)] flex-wrap items-center justify-around overflow-scroll scroll-smooth px-4">
+      <div className="flex h-[calc(100vh-4rem-2px)] flex-wrap items-center justify-around overflow-scroll scroll-smooth">
         <div className="my-4 flex w-full flex-col items-center justify-center gap-2">
           <div className="relative h-12 w-52">
             <input
@@ -143,7 +143,7 @@ const ProductsCardScroll: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex h-[1.25rem] w-3/4 max-w-[80vw] gap-2 overflow-x-scroll px-2">
+        <div className="flex h-[1.25rem] w-[96%] max-w-[95vw] gap-2 overflow-x-scroll">
           {filters.categories.map((category) => (
             <div
               className="badge badge-neutral gap-2"
@@ -182,12 +182,12 @@ const ProductsCardScroll: React.FC = () => {
             <h2 className="singleLine">{"Todos"}</h2>
           </div>
         </div>
-        <div className="flex flex-wrap items-center justify-around overflow-scroll">
+        <div className="flex flex-wrap items-center justify-between overflow-scroll px-2">
           {filteredProducts.length > 0 ? (
             filteredProducts?.map((product) => (
               <div
                 key={product.id}
-                className="card glass card-compact mb-8 w-[45%] max-w-xs"
+                className="card glass card-compact mb-8 w-[48%] max-w-xs"
               >
                 <figure className="relative w-full overflow-hidden pb-[100%]">
                   <Link href={`products/${product.slug}`}>
