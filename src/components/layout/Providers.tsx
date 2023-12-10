@@ -3,6 +3,7 @@ import CartProvider, { type Cart } from "~/context/ShoppingCart";
 import ThemeProvider from "~/context/Theme";
 import { ToastProvider } from "~/context/Toaster";
 import { UserProvider } from "~/context/User";
+import type { Product, Category } from "~/interfaces";
 
 interface IProps {
   children: React.ReactNode;
@@ -12,6 +13,8 @@ interface IProps {
   gradientThemeProp: string;
   bgThemeProp: string;
   cartProp: Cart;
+  categoriesProp: Category[];
+  productsProp: Product[];
 }
 
 const Providers: React.FC<IProps> = ({
@@ -22,6 +25,8 @@ const Providers: React.FC<IProps> = ({
   gradientThemeProp,
   bgThemeProp,
   cartProp,
+  categoriesProp,
+  productsProp,
 }) => {
   return (
     <ThemeProvider
@@ -32,7 +37,11 @@ const Providers: React.FC<IProps> = ({
       bgThemeProp={bgThemeProp}
     >
       <UserProvider>
-        <CartProvider cartProp={cartProp}>
+        <CartProvider
+          productsProp={productsProp}
+          categoriesProp={categoriesProp}
+          cartProp={cartProp}
+        >
           <ToastProvider>{children}</ToastProvider>
         </CartProvider>
       </UserProvider>

@@ -27,7 +27,6 @@ export interface CartContext {
   categories: Category[];
   getProducts: () => Promise<void>;
   getCategories: () => Promise<void>;
-  loaded: boolean;
 }
 
 const CartContext = createContext<CartContext | null>(null);
@@ -43,13 +42,19 @@ export const useCart = () => {
 interface IProps {
   children: React.ReactNode;
   cartProp: Cart;
+  productsProp: Product[];
+  categoriesProp: Category[];
 }
 
-export const CartProvider: React.FC<IProps> = ({ children, cartProp }) => {
+export const CartProvider: React.FC<IProps> = ({
+  children,
+  cartProp,
+  productsProp,
+  categoriesProp,
+}) => {
   const [cart, setCart] = useState<Cart>(cartProp);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loaded, setLoaded] = useState(false);
+  const [products, setProducts] = useState<Product[]>(productsProp);
+  const [categories, setCategories] = useState<Category[]>(categoriesProp);
 
   const getProducts = async () => {
     const res = await fetch("/api/products");
@@ -61,14 +66,8 @@ export const CartProvider: React.FC<IProps> = ({ children, cartProp }) => {
     const data = (await res.json()) as Category[];
     setCategories(data);
   };
-  const firstLoad = async () => {
-    await getProducts();
-    await getCategories();
-    setLoaded(true);
-  };
 
   useEffect(() => {
-    void firstLoad();
     setCookie("cart", JSON.stringify(cart));
   }, [cart]);
 
@@ -121,7 +120,6 @@ export const CartProvider: React.FC<IProps> = ({ children, cartProp }) => {
         categories,
         getProducts,
         getCategories,
-        loaded,
       }}
     >
       <input type="checkbox" id="cart-modal" className="modal-toggle" />
