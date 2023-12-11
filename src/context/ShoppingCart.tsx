@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { getCookie, setCookie } from "cookies-next";
+import { setCookie } from "cookies-next";
 import { createContext, useContext, useState, useEffect } from "react";
 
 import { type Category, type Product } from "~/interfaces";
@@ -310,15 +310,6 @@ export const CartProvider: React.FC<IProps> = ({
             )}
           </div>
           <div className="modal-action">
-            <label
-              onClick={() => {
-                console.log("cookies", getCookie("cart"));
-                console.log("cart", cart);
-              }}
-              className="btn btn-primary"
-            >
-              Cookies/Cart
-            </label>
             <label
               id="open-buy-modal"
               htmlFor="buy-modal"

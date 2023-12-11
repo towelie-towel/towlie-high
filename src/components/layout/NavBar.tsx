@@ -142,8 +142,9 @@ const NavBar: React.FC = () => {
               </li>
               <li>
                 <a
-                  onClick={() => {
-                    console.log("aaa");
+                  onClick={async () => {
+                    const { error } = await supabase.auth.signOut();
+                    console.log({ error });
                   }}
                 >
                   Logout
