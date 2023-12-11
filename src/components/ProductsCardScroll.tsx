@@ -187,7 +187,7 @@ const ProductsCardScroll: React.FC = () => {
             filteredProducts?.map((product) => (
               <div
                 key={product.id}
-                className="card glass card-compact mb-8 w-[48%] max-w-xs"
+                className="card glass card-compact mb-8 w-[48%] max-w-xs bg-opacity-20"
               >
                 <figure className="relative w-full overflow-hidden pb-[100%]">
                   <Link href={`products/${product.slug}`}>
@@ -210,7 +210,7 @@ const ProductsCardScroll: React.FC = () => {
                     {product.name}
                   </h2>
                   <div className="card-actions items-center justify-between">
-                    <h2 className="text-lg font-semibold text-accent">
+                    <h2 className="text-lg font-semibold text-neutral">
                       {product.price} {product.currency}
                     </h2>
                     <button
