@@ -10,7 +10,7 @@ import { supabase } from "~/lib/supabase";
 const NavBar: React.FC = () => {
   const { colorTheme, toogleColorTheme } = useTheme();
   const { cart } = useCart();
-  const { isSignedIn, user } = useUser();
+  const { isSignedIn, user, signOut } = useUser();
 
   return (
     <nav className="navbar relative z-10 bg-base-100 bg-opacity-90 text-base-content shadow-md backdrop-blur">
@@ -143,8 +143,7 @@ const NavBar: React.FC = () => {
               <li>
                 <a
                   onClick={async () => {
-                    const { error } = await supabase.auth.signOut();
-                    console.log({ error });
+                    await signOut();
                   }}
                 >
                   Logout
