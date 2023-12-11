@@ -9,6 +9,7 @@ export interface ThemeContext {
   gradientTheme: string;
   bgTheme: string;
   toogleColorTheme: () => void;
+  toogleGradientTheme: () => void;
   setColorTheme: (t: string) => void;
   setLightTheme: (t: string) => void;
   setDarkTheme: (t: string) => void;
@@ -74,15 +75,38 @@ export const ThemeProvider: React.FC<IProps> = ({
   }, [darkTheme]);
 
   useEffect(() => {
+    const body = document.querySelector("body");
+    if (gradientTheme === "true") {
+      body?.classList.remove("bg-primary");
+      body?.classList.remove("bg-secondary");
+      body?.classList.add("bg-gradient-to-br");
+      body?.classList.add("from-primary");
+      body?.classList.add("to-secondary");
+    } else {
+      body?.classList.remove("bg-gradient-to-br");
+      body?.classList.remove("from-primary");
+      body?.classList.remove("to-secondary");
+      body?.classList.add("bg-" + bgTheme);
+    }
     setCookie("gradient_theme", gradientTheme);
   }, [gradientTheme]);
 
   useEffect(() => {
+    const body = document.querySelector("body");
+    if (bgTheme === "primary") {
+      body?.classList.replace("bg-secondary", "bg-primary");
+    } else {
+      body?.classList.replace("bg-primary", "bg-secondary");
+    }
     setCookie("bg_theme", bgTheme);
   }, [bgTheme]);
 
   const toogleColorTheme = () => {
     setColorTheme(colorTheme === "light" ? "dark" : "light");
+  };
+
+  const toogleGradientTheme = () => {
+    setGradientTheme(gradientTheme === "true" ? "false" : "true");
   };
 
   return (
@@ -94,6 +118,7 @@ export const ThemeProvider: React.FC<IProps> = ({
         gradientTheme,
         bgTheme,
         toogleColorTheme,
+        toogleGradientTheme,
         setColorTheme,
         setLightTheme,
         setDarkTheme,

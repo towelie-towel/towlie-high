@@ -145,7 +145,7 @@ export const ToastProvider: React.FunctionComponent<{
           );
         })}
       </div>
-      {/* // TODO fix omiting type colors without this */}
+      {/* // TODO fix omiting styles without this */}
       <div className="alert-error hidden"></div>
       <div className="alert-warning hidden"></div>
       <div className="alert-success hidden"></div>

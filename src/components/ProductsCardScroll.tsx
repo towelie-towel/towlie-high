@@ -182,7 +182,7 @@ const ProductsCardScroll: React.FC = () => {
             <h2 className="singleLine">{"Todos"}</h2>
           </div>
         </div>
-        <div className="flex flex-wrap items-center justify-between overflow-scroll px-2">
+        <div className="flex flex-wrap items-center justify-around overflow-scroll px-2">
           {filteredProducts.length > 0 ? (
             filteredProducts?.map((product) => (
               <div
@@ -206,14 +206,15 @@ const ProductsCardScroll: React.FC = () => {
                   </Link>
                 </figure>
                 <div className="card-body">
-                  <h2 className="text-base">{product.name}</h2>
+                  <h2 className="singleLine text-xl text-neutral">
+                    {product.name}
+                  </h2>
                   <div className="card-actions items-center justify-between">
-                    <h2 className="text-base">
+                    <h2 className="text-lg font-semibold text-accent">
                       {product.price} {product.currency}
                     </h2>
                     <button
                       className="btn btn-primary"
-                      // TODO mostrar no disponemos más de ese producto cuando no haya stock
                       onClick={() => {
                         const existItem = cart.items.find(
                           (item) => item.productId === product.id,

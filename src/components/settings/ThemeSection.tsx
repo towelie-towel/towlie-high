@@ -7,6 +7,7 @@ const ThemeSection = () => {
   const {
     colorTheme,
     toogleColorTheme,
+    toogleGradientTheme,
     lightTheme,
     darkTheme,
     gradientTheme,
@@ -82,7 +83,7 @@ const ThemeSection = () => {
             type="checkbox"
             checked={gradientTheme === "true"}
             onChange={() => {
-              setGradientTheme(gradientTheme === "true" ? "false" : "true");
+              toogleGradientTheme();
             }}
             className="checkbox"
           />
@@ -98,7 +99,7 @@ const ThemeSection = () => {
           >
             <option value={"primary"}>Primario</option>
             <option value={"secondary"}>Secundario</option>
-            <option value={"black&white"}>Claro/Oscuro</option>
+            {/* <option value={"black&white"}>Claro/Oscuro</option> */}
           </select>
         </div>
       </div>
@@ -178,7 +179,11 @@ const ThemeSection = () => {
                 type="checkbox"
                 checked={gradientTheme === "true"}
                 onChange={() => {
-                  console.log("toggle gradient");
+                  console.log("onChange");
+                  toogleGradientTheme();
+                }}
+                onClick={() => {
+                  console.log("onClick");
                 }}
                 className="checkbox"
               />
@@ -186,7 +191,7 @@ const ThemeSection = () => {
             <div className="mx-1 flex flex-row">
               <select
                 onChange={(e) => {
-                  console.log("update the bg color", e.currentTarget.value);
+                  setBgTheme(e.target.value);
                 }}
                 value={bgTheme ?? "primary"}
                 className="select select-bordered"
@@ -194,7 +199,7 @@ const ThemeSection = () => {
               >
                 <option value={"primary"}>Primario</option>
                 <option value={"secondary"}>Secundario</option>
-                <option value={"black&white"}>Claro/Oscuro</option>
+                {/* <option value={"black&white"}>Claro/Oscuro</option> */}
               </select>
             </div>
           </div>
