@@ -37,7 +37,7 @@ const ProductsCardScroll: React.FC = () => {
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
-      <div className="flex h-[calc(100vh-4rem-2px)] flex-wrap items-center justify-around overflow-scroll scroll-smooth">
+      <div className="flex h-[calc(100vh-4rem-2px)] flex-wrap items-center justify-around overflow-x-scroll scroll-smooth">
         <div className="my-4 flex w-full flex-col items-center justify-center gap-2">
           <div className="relative h-12 w-52">
             <input
@@ -143,38 +143,41 @@ const ProductsCardScroll: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex h-[1.25rem] w-[96%] max-w-[95vw] gap-2 overflow-x-scroll">
-          {filters.categories.map((category) => (
-            <div
-              className="badge badge-neutral gap-2"
-              key={category}
-              onClick={() => {
-                handleFilterChange(
-                  "categories",
-                  filters.categories.filter((c) => c !== category),
-                );
-                if (selectRef.current) selectRef.current.value = "category";
-              }}
-            >
-              <h4 className="singleLine">
-                {categories.find((c) => c.id === category)?.name}
-              </h4>
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="inline-block h-4 w-4 stroke-current"
+        <div className="flex h-[1.25rem] w-[96%] max-w-[95vw] overflow-x-scroll max-sm:w-[96vw]">
+          <div className="flex min-w-fit flex-1 justify-center gap-2 overflow-x-scroll">
+            {(filters.categories.length > 0
+              ? categories.filter((c) => filters.categories.includes(c.id))
+              : categories
+            ).map((category) => (
+              <div
+                className="badge badge-neutral gap-2"
+                key={category.id}
+                onClick={() => {
+                  handleFilterChange(
+                    "categories",
+                    filters.categories.filter((c) => c !== category.id),
+                  );
+                  if (selectRef.current) selectRef.current.value = "category";
+                }}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                ></path>
-              </svg>
-            </div>
-          ))}
+                <h4 className="singleLine">{category.name}</h4>
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className="inline-block h-4 w-4 stroke-current"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="divider divider-neutral w-3/4">
@@ -189,7 +192,7 @@ const ProductsCardScroll: React.FC = () => {
                 key={product.id}
                 className="card glass card-compact mb-8 w-[48%] max-w-xs bg-opacity-20 max-lg:min-w-[35vw]"
               >
-                <figure className="relative w-full overflow-hidden pb-[100%]">
+                <figure className="relative w-full overflow-hidden bg-base-100 pb-[100%] opacity-80 shadow-xl">
                   <Link href={`products/${product.slug}`}>
                     <Image
                       src={product.primary_image.url}
