@@ -189,7 +189,7 @@ const ProductsCardScroll: React.FC = () => {
             <h2 className="singleLine">{"Todos"}</h2>
           </div>
         </div>
-        <div className="flex flex-wrap items-center justify-around overflow-scroll px-2">
+        <div className="flex w-full flex-wrap items-center justify-around overflow-scroll px-2">
           {filteredProducts.length > 0 ? (
             filteredProducts?.map((product) => (
               <div
