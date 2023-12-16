@@ -112,7 +112,7 @@ const NavBar: React.FC = () => {
             </div>
           </div>
         </div>
-        {isSignedIn ? (
+        {isSignedIn || true ? (
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="avatar btn btn-circle btn-ghost">
               <div className="w-10 rounded-full">

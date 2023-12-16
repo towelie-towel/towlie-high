@@ -14,7 +14,7 @@ const ThemeSection = () => {
     bgTheme,
     setBgTheme,
     setDarkTheme,
-    setGradientTheme,
+    // setGradientTheme,
     setLightTheme,
   } = useTheme();
 
@@ -51,7 +51,7 @@ const ThemeSection = () => {
             </label>
           </div>
           <div className="flex w-full flex-row flex-wrap items-center justify-around">
-            <div className="mx-2">
+            <div className="my-2">
               <h1>Modo Claro: </h1>
               <ChangeTheme
                 isEnabled
@@ -62,7 +62,7 @@ const ThemeSection = () => {
                 }}
               />
             </div>
-            <div className="mx-2">
+            <div className="my-2">
               <h2>Modo Oscuro: </h2>
               <ChangeTheme
                 isEnabled
@@ -147,7 +147,7 @@ const ThemeSection = () => {
                 </label>
               </div>
               <div className="flex w-full flex-row flex-wrap items-center justify-around">
-                <div className="mx-2">
+                <div className="my-2">
                   <h1>Modo Claro: </h1>
                   <ChangeTheme
                     isEnabled
@@ -158,7 +158,7 @@ const ThemeSection = () => {
                     }}
                   />
                 </div>
-                <div className="mx-2">
+                <div className="my-2">
                   <h2>Modo Oscuro: </h2>
                   <ChangeTheme
                     isEnabled

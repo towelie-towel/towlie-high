@@ -53,11 +53,11 @@ const ChangeTheme: React.FC<IProps> = ({
   }, [currentTheme]);
 
   return (
-    <div className={`dropdown z-30 ${dropdownPos}`}>
+    <div className={`dropdown ${dropdownPos}`}>
       <button
         disabled={!isEnabled}
         tabIndex={0}
-        className="overflow-hidden rounded-lg text-left outline-base-content"
+        className="relative z-30 overflow-hidden rounded-lg text-left outline-base-content"
       >
         <div
           data-theme={selectedTheme}
@@ -77,7 +77,7 @@ const ChangeTheme: React.FC<IProps> = ({
         </div>
       </button>
 
-      <div className="scro dropdown-content top-px mt-16 max-h-52 w-52 overflow-y-auto rounded-b-box rounded-t-box bg-base-200 text-base-content shadow-2xl">
+      <div className="dropdown-content top-px z-40 mt-12 max-h-52 w-52 overflow-y-auto rounded-b-box rounded-t-box bg-base-200 text-base-content shadow-2xl ">
         <div className="grid grid-cols-1 gap-3 p-3" tabIndex={0}>
           {themes.map((theme, index) => (
             <button
