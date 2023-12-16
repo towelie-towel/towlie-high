@@ -16,18 +16,48 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </div>
         <div className="drawer-side z-20">
           <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-          <ul className="menu min-h-full w-80 bg-base-300 p-4">
-            <li>
-              <Link href="/products">Productos</Link>
+          <ul className="menu min-h-full w-80 gap-2 bg-base-300 p-4">
+            <li className="justify-betweent flex flex-row items-center">
+              <div className="flex flex-1 hover:bg-transparent active:bg-transparent">
+                <h1 className="flex-1 text-xl font-bold">
+                  Cuba Store
+                </h1>
+              </div>
+              <label
+                htmlFor="my-drawer-3"
+                className="drawer-overlay items-center justify-center lg:hidden"
+              >
+                <svg
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  width={24}
+                  height={24}
+                  stroke="currentColor"
+                  className="items-center justify-center"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </label>
             </li>
             <li>
-              <Link href="/orders">Ordenes</Link>
+              <Link className="font-medium text-sm" href="/home">Inicio</Link>
             </li>
             <li>
-              <Link href="/test">Inventando</Link>
+              <Link className="font-medium text-sm" href="/products">Productos</Link>
             </li>
             <li>
-              <Link href="/admin/">Administrar Productos</Link>
+              <Link className="font-medium text-sm" href="/orders">Ordenes</Link>
+            </li>
+            <li>
+              <Link className="font-medium text-sm" href="/test">Inventando</Link>
+            </li>
+            <li>
+              <Link className="font-medium text-sm" href="/admin/">Administrar Productos</Link>
             </li>
           </ul>
         </div>

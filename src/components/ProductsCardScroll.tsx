@@ -187,7 +187,7 @@ const ProductsCardScroll: React.FC = () => {
             filteredProducts?.map((product) => (
               <div
                 key={product.id}
-                className="card glass card-compact mb-8 w-[48%] max-w-xs bg-opacity-20"
+                className="card glass card-compact mb-8 w-[48%] max-w-xs bg-opacity-20 max-lg:min-w-[35vw]"
               >
                 <figure className="relative w-full overflow-hidden pb-[100%]">
                   <Link href={`products/${product.slug}`}>
