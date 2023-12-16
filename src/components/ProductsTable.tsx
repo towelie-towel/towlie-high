@@ -26,10 +26,6 @@ const ProductsTable: React.FC = () => {
     await getCategories();
   };
 
-  function refetchProducts() {
-    throw new Error("Function not implemented.");
-  }
-
   return (
     <div className="h-screen w-full overflow-scroll bg-base-100  px-8">
       {inputProps.active && (
@@ -238,17 +234,6 @@ const ProductsTable: React.FC = () => {
                                   className="toggle-active toggle"
                                   defaultChecked={product.active}
                                   onChange={(e) => {
-                                    /* setActive.mutate(
-                                    {
-                                      productId: product.id,
-                                      active: !product.active,
-                                    },
-                                    {
-                                      onSuccess() {
-                                        void refetchProducts();
-                                      },
-                                    },
-                                  ); */
                                     e.target.checked = !product.active;
                                   }}
                                 />

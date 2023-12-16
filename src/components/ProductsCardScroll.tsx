@@ -155,7 +155,11 @@ const ProductsCardScroll: React.FC = () => {
                 onClick={() => {
                   handleFilterChange(
                     "categories",
-                    filters.categories.filter((c) => c !== category.id),
+                    filters.categories.length > 0
+                      ? filters.categories.filter((c) => c !== category.id)
+                      : categories
+                          .map((c) => c.id)
+                          .filter((c) => c !== category.id),
                   );
                   if (selectRef.current) selectRef.current.value = "category";
                 }}
