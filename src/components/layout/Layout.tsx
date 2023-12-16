@@ -5,12 +5,13 @@ import SettingsOptions from "../settings/Settings";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div className="flex h-screen w-screen flex-col">
+    <div className="flex h-full w-full flex-col">
       <BuyingProcess />
       <SettingsOptions />
       <div className="drawer-mobile drawer lg:drawer-open">
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content relative flex flex-col">
+          <div className="my-8"></div>
           <NavBar />
           {children}
         </div>
@@ -19,9 +20,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <ul className="menu min-h-full w-80 gap-2 bg-base-300 p-4">
             <li className="justify-betweent flex flex-row items-center">
               <div className="flex flex-1 hover:bg-transparent active:bg-transparent">
-                <h1 className="flex-1 text-xl font-bold">
-                  Cuba Store
-                </h1>
+                <h1 className="flex-1 text-xl font-bold">Cuba Store</h1>
               </div>
               <label
                 htmlFor="my-drawer-3"
@@ -45,19 +44,29 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               </label>
             </li>
             <li>
-              <Link className="font-medium text-sm" href="/home">Inicio</Link>
+              <Link className="text-sm font-medium" href="/home">
+                Inicio
+              </Link>
             </li>
             <li>
-              <Link className="font-medium text-sm" href="/products">Productos</Link>
+              <Link className="text-sm font-medium" href="/products">
+                Productos
+              </Link>
             </li>
             <li>
-              <Link className="font-medium text-sm" href="/orders">Ordenes</Link>
+              <Link className="text-sm font-medium" href="/orders">
+                Ordenes
+              </Link>
             </li>
             <li>
-              <Link className="font-medium text-sm" href="/test">Inventando</Link>
+              <Link className="text-sm font-medium" href="/test">
+                Inventando
+              </Link>
             </li>
             <li>
-              <Link className="font-medium text-sm" href="/admin/">Administrar Productos</Link>
+              <Link className="text-sm font-medium" href="/admin/">
+                Administrar Productos
+              </Link>
             </li>
           </ul>
         </div>

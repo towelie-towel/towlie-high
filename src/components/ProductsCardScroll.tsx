@@ -37,7 +37,7 @@ const ProductsCardScroll: React.FC = () => {
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
-      <div className="flex h-[calc(100vh-4rem-2px)] flex-wrap items-center justify-around overflow-x-scroll scroll-smooth">
+      <div className="flex min-h-fit flex-wrap items-center justify-around overflow-x-scroll scroll-smooth">
         <div className="my-4 flex w-full flex-col items-center justify-center gap-2">
           <div className="relative h-12 w-52">
             <input

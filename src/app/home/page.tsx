@@ -9,7 +9,7 @@ export default function HomePage() {
     <main className="flex h-full w-full flex-col items-center justify-center">
       {/* <Sidebar /> */}
 
-      <div className="flex h-[calc(100vh-4rem-2px)] flex-wrap gap-2 overflow-scroll scroll-smooth whitespace-nowrap px-2 py-5">
+      <div className="flex h-full flex-wrap gap-2 overflow-scroll scroll-smooth whitespace-nowrap px-2 py-5">
         {/* <Banner /> */}
         {products.length > 0 ? (
           products.map((product) => (

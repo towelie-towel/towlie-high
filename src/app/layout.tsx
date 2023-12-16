@@ -98,7 +98,7 @@ export default async function RootLayout({
       lang="en"
     >
       <body
-        className={`h-screen ${
+        className={`${
           gradientTheme === "true"
             ? "bg-gradient-to-br from-primary to-secondary"
             : "bg-" + bgColorTheme
