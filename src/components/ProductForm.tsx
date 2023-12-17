@@ -9,7 +9,7 @@ interface FormValues {
   stock: string;
   secondaryImages: FileList[];
   description: string;
-  categoryId: string;
+  categoryName: string;
   primaryImage: FileList;
 }
 
@@ -58,7 +58,7 @@ const ProductForm: React.FC = () => {
     formData.append("primary_image", data.primaryImage[0]);
     formData.append("price", data.price);
     formData.append("stock", data.stock);
-    formData.append("category_id", data.categoryId);
+    formData.append("category_name", data.categoryName);
     formData.append("color", "red");
 
     for (const secondaryFile of Array.from(data.secondaryImages)) {
@@ -376,7 +376,7 @@ const ProductForm: React.FC = () => {
                 className={`${
                   !isAddCategorySelected ? "hidden" : ""
                 } input input-bordered w-full max-w-xs`}
-                {...register("categoryId", {
+                {...register("categoryName", {
                   required: true,
                 })}
               />
@@ -384,13 +384,13 @@ const ProductForm: React.FC = () => {
                 <select
                   onChange={(e) => {
                     if (e.target.value === "Añadir") {
-                      setValue("categoryId", "");
+                      setValue("categoryName", "");
                       setAddCategorySelected(true);
-                      clearErrors("categoryId");
+                      clearErrors("categoryName");
                       return;
                     }
-                    setValue("categoryId", e.target.value);
-                    clearErrors("categoryId");
+                    setValue("categoryName", e.target.value);
+                    clearErrors("categoryName");
                   }}
                   defaultValue={"category-default"}
                   className="select select-bordered"
@@ -409,7 +409,7 @@ const ProductForm: React.FC = () => {
                   </option>
                 </select>
               )}
-              {errors.categoryId ? (
+              {errors.categoryName ? (
                 <div className="badge badge-warning my-[2px] gap-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -424,7 +424,7 @@ const ProductForm: React.FC = () => {
                       d="M6 18L18 6M6 6l12 12"
                     ></path>
                   </svg>
-                  {errors.categoryId.message ?? "obligatorio"}
+                  {errors.categoryName.message ?? "obligatorio"}
                 </div>
               ) : (
                 <div className="h-6"></div>

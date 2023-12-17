@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
         const currency = (formData.get("currency") as string) ?? "CUP";
         const price = formData.get("price") as string;
         const stock = formData.get("stock") as string;
-        const categoryId = formData.get("category_id") as string;
+        const categoryName = formData.get("category_name") as string;
 
         const primaryImage: Partial<Image> = {};
         const secondaryImages: Array<Partial<Image>> = [];
@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
 
         const query = {
             text: `SELECT insert_product($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
-            values: [name, description, price, currency, stock, categoryId, generateSlug(name), name.toLowerCase().replace(/\s+/g, '_'), primaryImage, secondaryImages],
+            values: [name, description, price, currency, stock, categoryName, generateSlug(name), name.toLowerCase().replace(/\s+/g, '_'), primaryImage, secondaryImages],
         }
         const response = await conn.query(query);
 

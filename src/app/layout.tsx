@@ -33,7 +33,7 @@ export default async function RootLayout({
     !gradientTheme ||
     !bgColorTheme
   ) {
-    const theme = await conn.query("SELECT * FROM theme WHERE id = 1");
+    const theme = await conn.query("SELECT * FROM themes WHERE id = 1");
     const themeData = theme.rows[0] as Theme;
     console.log(themeData);
     dataTheme = dataTheme ?? themeData.color_theme;

@@ -244,6 +244,7 @@ const ProductsCardScroll: React.FC = () => {
                           productStock: product.stock,
                           name: product.name,
                           price: product.price,
+                          currency: product.currency,
                           quantity: 1,
                         });
                       }}

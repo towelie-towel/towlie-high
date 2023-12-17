@@ -164,7 +164,7 @@ const ProductsTable: React.FC = () => {
                                   </div>
                                   <div className="flex flex-row items-center justify-around">
                                     <div className="text-sm opacity-50">
-                                      ${product.price}
+                                      ${product.price} {product.currency}
                                     </div>
                                     <div
                                       className={`badge badge-sm text-sm badge-${
@@ -327,7 +327,9 @@ const ProductsTable: React.FC = () => {
                               }}
                             >
                               <div className="flex justify-between">
-                                <p>{product.price}</p>
+                                <p>
+                                  {product.price} {product.currency}
+                                </p>
                                 {inputProps.active &&
                                   inputProps.productId === product.id &&
                                   inputProps.field === "price" && (
