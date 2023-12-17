@@ -44,11 +44,6 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               </label>
             </li>
             <li>
-              <Link className="text-sm font-medium" href="/home">
-                Inicio
-              </Link>
-            </li>
-            <li>
               <Link className="text-sm font-medium" href="/products">
                 Productos
               </Link>
