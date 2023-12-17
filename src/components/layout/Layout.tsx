@@ -10,7 +10,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <SettingsOptions />
       <div className="drawer-mobile drawer lg:drawer-open">
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content relative flex flex-col">
+        <div className="drawer-content relative flex min-h-screen flex-col">
           <div className="my-8"></div>
           <NavBar />
           {children}

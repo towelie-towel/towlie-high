@@ -23,3 +23,9 @@ html {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+@media (max-width: 320px) {
+  html {
+    font-size: 80%;
+  }
+}

@@ -3,7 +3,7 @@ import { type Product } from "~/interfaces";
 
 export default function ProductCard({ product }: { product: Product }) {
   return (
-    <div className="card image-full z-10 w-1/4 min-w-fit overflow-hidden bg-base-100 shadow-xl">
+    <div className="-min-w-fit card image-full z-10 min-w-fit overflow-hidden bg-base-100 shadow-xl">
       <figure className="">
         <Image
           src={product.primary_image.url}
@@ -17,11 +17,15 @@ export default function ProductCard({ product }: { product: Product }) {
         />
       </figure>
 
-      <div className="card-body max-sm:p-5">
-        <h2 className="card-title max-sm:text-base">{product.name}</h2>
-        <p className="max-sm:text-xs text-sm">{product.description}</p>
+      <div className="card-body max-[768px]:p-5 max-[375px]:p-3">
+        <h2 className="card-title min-w-0 max-[768px]:text-sm max-[375px]:text-base">
+          {product.name}
+        </h2>
+        <p className="singleLine min-w-0 max-w-[80vw] text-sm max-[768px]:text-xs max-[375px]:text-[0.6rem]">
+          {product.description}
+        </p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary max-sm:btn-sm max-sm:text-xs">
+          <button className="btn btn-primary max-[768px]:btn-sm max-[375px]:btn-xs">
             Compra Ahora
           </button>
         </div>

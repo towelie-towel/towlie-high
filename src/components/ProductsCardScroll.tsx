@@ -50,7 +50,7 @@ const ProductsCardScroll: React.FC = () => {
               placeholder="Busca un Producto"
               className="input input-bordered w-full max-w-xs pr-12"
             />
-            <div className="absolute right-2 top-[14px] flex">
+            <div className="absolute right-2 top-[0.875rem] flex">
               <div className="mr-2 w-[1px] bg-[var(--fallback-bc,oklch(var(--bc)/0.1))]" />
               <svg
                 onClick={() => {
