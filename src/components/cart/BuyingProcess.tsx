@@ -34,8 +34,7 @@ const BuyingProcess = () => {
 
   return (
     <>
-      <input type="checkbox" id="buy-modal" className="modal-toggle" />
-      <div className="modal">
+      <dialog id="buy-modal" className="modal">
         <div className="modal-box relative flex h-[80%] max-h-[800px] min-h-[500px] w-11/12 min-w-[300px]  max-w-[500px] flex-col overflow-visible">
           <div className="flex h-full flex-col items-center">
             <div className="flex flex-row gap-4">
@@ -65,8 +64,12 @@ const BuyingProcess = () => {
                   Recibo
                 </li>
               </ul>
-              <label
-                htmlFor="buy-modal"
+              <button
+                onClick={() =>
+                  document
+                    .querySelector<HTMLDialogElement>("#buy-modal")
+                    ?.close()
+                }
                 className="btn btn-ghost absolute right-7 top-7 cursor-pointer rounded-full max-[400px]:right-4 max-[400px]:top-4 max-[400px]:scale-90"
               >
                 <svg
@@ -83,7 +86,7 @@ const BuyingProcess = () => {
                     d="M6 18L18 6M6 6l12 12"
                   ></path>
                 </svg>
-              </label>
+              </button>
             </div>
             <div className="flex h-full w-full flex-col items-center justify-evenly">
               {currentStep === "Session" && (
@@ -298,7 +301,7 @@ const BuyingProcess = () => {
             </button>
           </div>
         </div>
-      </div>
+      </dialog>
     </>
   );
 };

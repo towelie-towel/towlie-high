@@ -101,13 +101,16 @@ const NavBar: React.FC = () => {
               </span>
               <span className="text-info">Total: ${cart.total}</span>
               <div className="card-actions">
-                <label
-                  id="open-cart-modal"
-                  htmlFor="cart-modal"
+                <button
+                  onClick={() => {
+                    document
+                      .querySelector<HTMLDialogElement>("#cart-modal")
+                      ?.showModal();
+                  }}
                   className="btn btn-primary btn-block"
                 >
                   Ver Carrito
-                </label>
+                </button>
               </div>
             </div>
           </div>
