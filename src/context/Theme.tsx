@@ -3,14 +3,14 @@ import { setCookie } from "cookies-next";
 import { createContext, useContext, useState, useEffect } from "react";
 
 export interface ThemeContext {
-  colorTheme: string;
+  colorTheme: "light" | "dark";
   lightTheme: string;
   darkTheme: string;
   gradientTheme: string;
   bgTheme: string;
   toogleColorTheme: () => void;
   toogleGradientTheme: () => void;
-  setColorTheme: (t: string) => void;
+  setColorTheme: (t: "light" | "dark") => void;
   setLightTheme: (t: string) => void;
   setDarkTheme: (t: string) => void;
   setGradientTheme: (t: string) => void;
@@ -29,7 +29,7 @@ export const useTheme = () => {
 
 interface IProps {
   children: React.ReactNode;
-  colorThemeProp: string;
+  colorThemeProp: "light" | "dark";
   lightThemeProp: string;
   darkThemeProp: string;
   gradientThemeProp: string;
@@ -44,7 +44,9 @@ export const ThemeProvider: React.FC<IProps> = ({
   gradientThemeProp,
   bgThemeProp,
 }) => {
-  const [colorTheme, setColorTheme] = useState(colorThemeProp);
+  const [colorTheme, setColorTheme] = useState<"light" | "dark">(
+    colorThemeProp,
+  );
   const [lightTheme, setLightTheme] = useState(lightThemeProp);
   const [darkTheme, setDarkTheme] = useState(darkThemeProp);
   const [gradientTheme, setGradientTheme] = useState(gradientThemeProp);

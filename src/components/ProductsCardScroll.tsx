@@ -194,7 +194,7 @@ const ProductsCardScroll: React.FC = () => {
             filteredProducts?.map((product) => (
               <div
                 key={product.id}
-                className="card glass card-compact mb-8 w-[48%] max-w-xs bg-opacity-20 max-lg:min-w-[35vw]"
+                className="card glass card-compact mb-8 w-[48%] max-w-xs bg-opacity-20 shadow-lg max-lg:min-w-[35vw]"
               >
                 <figure className="relative w-full overflow-hidden bg-base-100 pb-[100%] opacity-80 shadow-xl">
                   <Link href={`products/${product.slug}`}>
@@ -213,15 +213,18 @@ const ProductsCardScroll: React.FC = () => {
                   </Link>
                 </figure>
                 <div className="card-body">
-                  <h2 className="singleLine text-xl text-neutral">
+                  <h2 className="singleLine card-title min-w-0 text-neutral max-[375px]:text-base">
                     {product.name}
                   </h2>
                   <div className="card-actions items-center justify-between">
-                    <h2 className="text-lg font-semibold text-neutral">
+                    <h2 className="min-w-0 max-w-[80vw] text-lg text-neutral max-[768px]:text-base max-[375px]:text-sm">
                       {product.price} {product.currency}
                     </h2>
                     <button
-                      className="btn btn-primary"
+                      style={{
+                        borderColor: colorTheme === "light" ? "black" : "white",
+                      }}
+                      className="btn btn-primary border shadow-xl hover:bg-neutral"
                       onClick={() => {
                         const existItem = cart.items.find(
                           (item) => item.productId === product.id,
@@ -255,7 +258,7 @@ const ProductsCardScroll: React.FC = () => {
                         width={24}
                         fill="none"
                         viewBox="0 0 24 24"
-                        stroke="currentColor"
+                        stroke={colorTheme === "light" ? "black" : "white"}
                         strokeWidth={2}
                       >
                         <path

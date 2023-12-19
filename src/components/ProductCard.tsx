@@ -3,7 +3,7 @@ import { type Product } from "~/interfaces";
 
 export default function ProductCard({ product }: { product: Product }) {
   return (
-    <div className="-min-w-fit card image-full z-10 min-w-fit overflow-hidden bg-base-100 shadow-xl">
+    <div className="card image-full z-10 min-h-fit min-w-fit overflow-hidden bg-base-100 shadow-xl">
       <figure className="">
         <Image
           src={product.primary_image.url}
