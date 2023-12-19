@@ -32,7 +32,7 @@ export interface Image {
 }
 
 export interface Theme {
-    color_theme: string,
+    color_theme: "light" | "dark",
     light_theme: string,
     dark_theme: string,
     gradient_theme: string,

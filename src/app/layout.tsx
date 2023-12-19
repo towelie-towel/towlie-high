@@ -19,7 +19,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const cookieStore = cookies();
-  let dataTheme = cookieStore.get("color_theme")?.value;
+  let dataTheme = cookieStore.get("color_theme")?.value as "light" | "dark";
   let lightTheme = cookieStore.get("light_theme")?.value;
   let darkTheme = cookieStore.get("dark_theme")?.value;
   let gradientTheme = cookieStore.get("gradient_theme")?.value;
@@ -108,7 +108,7 @@ export default async function RootLayout({
           cartProp={
             (JSON.parse(cart ?? "null") as Cart) ?? { items: [], total: 0 }
           }
-          colorThemeProp={dataTheme ?? ""}
+          colorThemeProp={dataTheme ?? "light"}
           lightThemeProp={lightTheme ?? ""}
           darkThemeProp={darkTheme ?? ""}
           gradientThemeProp={gradientTheme ?? ""}

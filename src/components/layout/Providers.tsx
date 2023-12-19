@@ -7,7 +7,7 @@ import type { Product, Category } from "~/interfaces";
 
 interface IProps {
   children: React.ReactNode;
-  colorThemeProp: string;
+  colorThemeProp: "light" | "dark";
   lightThemeProp: string;
   darkThemeProp: string;
   gradientThemeProp: string;
