@@ -1,35 +1,10 @@
 "use client";
-
-import { useEffect } from "react";
 import ProductCard from "~/components/ProductCard";
 import { useCart } from "~/context/ShoppingCart";
 // import { useWindowSize } from "~/hooks/useWindow";
 
 export default function HomePage() {
   const { products, categories } = useCart();
-
-  useEffect(() => {
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const scrollers = document.querySelectorAll(".scroller");
-
-      scrollers.forEach((scroller) => {
-        scroller.setAttribute("data-animated", "true");
-        addAnimation(scroller);
-      });
-    }
-    function addAnimation(scroller: Element) {
-      const scrollerInner = scroller.firstElementChild;
-      const scrollerContent = Array.from(
-        scrollerInner?.childNodes ?? [],
-      ).splice(scrollerInner?.childElementCount ?? 0 / 2);
-
-      scrollerContent.forEach((item) => {
-        const duplicatedItem = item.cloneNode(true);
-        scrollerInner?.appendChild(duplicatedItem);
-      });
-      console.log(scroller.firstElementChild?.childElementCount);
-    }
-  }, []);
 
   return (
     <main className="flex h-full w-full flex-col items-center justify-center">
@@ -48,7 +23,7 @@ export default function HomePage() {
         categories.map((category) => (
           <>
             <div className="divider w-3/4 self-center">{category.name}</div>
-            <div className="carousel carousel-center h-44 w-screen gap-3 px-3">
+            <div className="scroller carousel carousel-center h-44 w-screen gap-3 px-3">
               {products.filter((p) => p.category.id === category.id).length >
                 0 &&
                 products
