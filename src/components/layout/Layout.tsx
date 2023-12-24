@@ -2,18 +2,20 @@ import Link from "next/link";
 import NavBar from "./NavBar";
 import BuyingProcess from "../cart/BuyingProcess";
 import SettingsOptions from "../settings/Settings";
+import Footer from "./Footer";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <div className="flex h-full w-full flex-col">
       <BuyingProcess />
       <SettingsOptions />
-      <div className="drawer-mobile drawer lg:drawer-open">
+      <div className="drawer-mobile drawer">
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content relative flex min-h-screen flex-col">
           <div className="my-8"></div>
           <NavBar />
           {children}
+          <Footer />
         </div>
         <div className="drawer-side z-20">
           <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
