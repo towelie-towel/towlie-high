@@ -11,9 +11,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <SettingsOptions />
       <div className="drawer-mobile drawer">
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content relative flex min-h-screen flex-col">
-          <div className="my-8"></div>
-          <NavBar />
+        <div className="drawer-content relative flex min-h-screen w-screen flex-col overflow-hidden">
+          {/* <NavBar /> */}
           {children}
           <Footer />
         </div>
@@ -63,6 +62,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <li>
               <Link className="text-sm font-medium" href="/admin/">
                 Administrar Productos
+              </Link>
+            </li>
+            <li>
+              <Link className="text-sm font-medium" href="/template">
+                Template
               </Link>
             </li>
           </ul>

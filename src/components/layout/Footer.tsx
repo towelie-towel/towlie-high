@@ -3,10 +3,10 @@ import Image from "next/image";
 function Footer() {
   return (
     <>
-      <footer className="mt-8 bg-neutral">
-        <div className="container mx-auto py-16">
-          <div className="flex flex-col items-center justify-between  text-left md:flex-row  md:items-start md:gap-[5rem]">
-            <div className="flex w-1/2 flex-col gap-8 py-4 md:p-0">
+      <footer className="mt-8 bg-neutral md:text-[80%]">
+        <div className="container mx-auto max-w-[90vw] py-16">
+          <div className="flex flex-col text-left md:flex-row md:items-start md:gap-[3rem] lg:gap-[4rem]">
+            <div className="flex w-1/3 flex-col gap-8 py-4 max-[768px]:w-2/3 md:p-0">
               <Image
                 src={"/image_processing20210620-5261-1izw9zf.png"}
                 alt="footer_logo"
@@ -18,7 +18,7 @@ function Footer() {
                 comprehensive program designed to help you reach your fitness
                 goals.
               </p>
-              <div className="flex justify-center gap-7 text-[18px] text-[#646464] md:justify-start">
+              <div className="flex gap-7 text-[18px] text-[#646464] md:justify-start">
                 <div
                   className="rounded-full bg-[#efefef] p-2 text-2xl hover:bg-accent hover:text-white"
                   style={{ transition: "all 0.3s" }}
@@ -67,8 +67,6 @@ function Footer() {
                     version="1.1"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <title>facebook [#176]</title>
-                    <desc>Created with Sketch.</desc>
                     <defs></defs>
                     <g
                       id="Page-1"
@@ -148,7 +146,7 @@ function Footer() {
                 </a>
               </p>
             </div>
-            <div className="relative flex w-fit flex-col gap-8 max-md:mt-5">
+            <div className="relative flex w-fit flex-col gap-8 max-[768px]:mt-12">
               <p className="footer-main text-[22px] font-bold">Our Classes</p>
               <span className="absolute top-[33px] h-[4px] w-[8rem] bg-accent"></span>
               <p className="singleLine cursor-pointer text-[16px] font-medium text-[#646464] hover:font-bold hover:text-accent">
@@ -164,10 +162,10 @@ function Footer() {
                 Learn Machines
               </p>
               <p className="singleLine cursor-pointer text-[16px] font-medium text-[#646464] hover:font-bold hover:text-accent">
-                Full-body Strength
+                Full-body
               </p>
             </div>
-            <div className="relative flex w-[8rem] flex-col gap-8 max-md:mt-5">
+            <div className="relative flex w-fit flex-col gap-8 max-[768px]:mt-12">
               <p className="footer-main text-[22px] font-bold">Horario</p>
               <span className="absolute top-[33px] h-[4px] w-[5rem] bg-accent"></span>
               <p className="text-[16px]  font-bold text-[#646464]">
@@ -184,7 +182,25 @@ function Footer() {
                 Sunday - Closed
               </p>
             </div>
-            <span></span>
+            <div className="relative flex w-fit flex-col gap-8 max-[768px]:mt-12">
+              <p className="footer-main text-[22px] font-bold">Our Classes</p>
+              <span className="absolute top-[33px] h-[4px] w-[8rem] bg-accent"></span>
+              <p className="singleLine cursor-pointer text-[16px] font-medium text-[#646464] hover:font-bold hover:text-accent">
+                Fitness Classes
+              </p>
+              <p className="singleLine cursor-pointer text-[16px] font-medium text-[#646464] hover:font-bold hover:text-accent">
+                Aerobics Classes
+              </p>
+              <p className="singleLine cursor-pointer text-[16px] font-medium text-[#646464] hover:font-bold hover:text-accent">
+                Power Yoga
+              </p>
+              <p className="singleLine cursor-pointer text-[16px] font-medium text-[#646464] hover:font-bold hover:text-accent">
+                Learn Machines
+              </p>
+              <p className="singleLine cursor-pointer text-[16px] font-medium text-[#646464] hover:font-bold hover:text-accent">
+                Full-body
+              </p>
+            </div>
           </div>
         </div>
       </footer>
