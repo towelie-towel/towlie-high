@@ -4,5 +4,11 @@
   "workbench.colorCustomizations": {
     "editorWarning.foreground": "#ffff00"
   },
-  "eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }]
+  "eslint.rules.customizations": [
+    {
+      "rule": "*",
+      "severity": "warn"
+    }
+  ],
+  "cloudcode.duetAI.inlineSuggestions.enableAuto": false
 }

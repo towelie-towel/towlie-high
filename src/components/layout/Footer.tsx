@@ -3,9 +3,9 @@ import Image from "next/image";
 function Footer() {
   return (
     <>
-      <footer className="mt-8 bg-neutral md:text-[80%]">
+      <footer className="mt-8 bg-neutral">
         <div className="container mx-auto max-w-[90vw] py-16">
-          <div className="flex flex-col text-left md:flex-row md:items-start md:gap-[3rem] lg:gap-[4rem]">
+          <div className="flex flex-col items-center justify-around text-left max-[768px]:items-start md:flex-row md:items-start md:gap-[3rem] lg:gap-[4rem]">
             <div className="flex w-1/3 flex-col gap-8 py-4 max-[768px]:w-2/3 md:p-0">
               <Image
                 src={"/image_processing20210620-5261-1izw9zf.png"}

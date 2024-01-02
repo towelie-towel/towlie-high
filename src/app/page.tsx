@@ -8,11 +8,11 @@ export default function HomePage() {
 
   return (
     <main className="flex h-full w-full flex-col items-center justify-center">
-      <div className="h-screen"></div>
+      {/* <div className="h-screen"></div> */}
       {categories.length > 0 &&
         categories.map((category) => (
           <React.Fragment key={category.id}>
-            <div className="divider card-title w-3/4 cursor-all-scroll self-center">
+            <div className="divider card-title w-3/4 self-center">
               {category.name}
             </div>
             <div className="carousel carousel-center w-full gap-3 px-3">
