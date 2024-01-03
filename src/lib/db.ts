@@ -2,7 +2,7 @@ import postgres from 'postgres'
 
 let sql: postgres.Sql;
 
-// @ts-expect-error - remaining connection slots are reserved for non-replication superuser connections
+// @ts-expect-error - day 2 of the year and i dont want to miss a green square
 if (!sql) {
     sql = postgres({
         user: process.env.DB_USER,
